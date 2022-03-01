@@ -22,8 +22,14 @@ export default function Game() {
     }
 
     fetchWord();
-    console.log(game);
+    // setGameState();
   }, [user]);
+
+  function setGameState() {
+    // const eachRow = new Array(correctWord.length);
+    // const newGameArray = game.map(() => eachRow);
+    // setGame(newGameArray);
+  }
 
   return (
     <div className="entire-game">
