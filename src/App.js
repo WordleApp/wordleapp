@@ -33,8 +33,13 @@ function App() {
     getUserData();
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress);
+  }, []);
+
   function handleKeyPress(e) {
-    console.log(e);
+    console.log(e.key);
+
   }
 
   return (
