@@ -37,14 +37,14 @@ function App() {
   //   window.addEventListener('keydown', handleKeyPress);
   // }, []);
 
-  function handleKeyPress(e) {
-    console.log(e.key);
+  // function handleKeyPress(e) {
+  //   console.log(e.key);
 
-  }
+  // }
 
   return (
     <Router>
-      <div onKeyDown={e => handleKeyPress(e)}>
+      <div>
         {
           !user
             ? <header></header>
