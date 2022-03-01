@@ -27,7 +27,7 @@ export default function AuthPage({ setUser }){
         </label>
         <label>
           Password:
-          <input value={password} onChange={e => setPassword(e.target.value)}/>
+          <input value={password} type="password" onChange={e => setPassword(e.target.value)}/>
         </label>
         <button type="submit" onClick={ handleSignIn }>Sign In</button>
         <button type="submit" onClick={ handleSignUp }>Sign Up</button>
