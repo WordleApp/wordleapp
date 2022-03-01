@@ -12,13 +12,15 @@ export default function GameProvider({ children }) {
   const [correctWord, setCorrectWord] = useState('apple');
   const [guessedWord, setGuessedWord] = useState();
   const [user, setUser] = useState();
+  const [rows, setRows] = useState();
 
 
   const gameState = {
     wordPool, setWordPool,
     correctWord, setCorrectWord,
     guessedWord, setGuessedWord,
-    user, setUser
+    user, setUser,
+    rows, setRows
   };
 
   return (

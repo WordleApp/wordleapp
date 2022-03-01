@@ -1,11 +1,29 @@
 .box{
-  width: 100px;
-  height: 100px;
+  min-width: 75px;
+  min-height: 75px;
   border: 1px solid black;
 }
 
-.game-row{
+/* .game-row{
   height: 300px;
   width: 900px;
   background-color: pink;
+} */
+
+.row {
+  margin-bottom: 5px;
+}
+
+.rows {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 500px;
+}
+
+.all-rows {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
