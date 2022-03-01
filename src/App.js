@@ -42,7 +42,7 @@ function App() {
               {
                 !user
                   ? <AuthPage setUser={setUser} />
-                  : <Redirect to='#' user={user} />
+                  : <Redirect to='/game' user={user} />
               }
             </Route>
             <Route>
