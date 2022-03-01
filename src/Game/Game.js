@@ -34,7 +34,7 @@ export default function Game() {
   return (
     <div className="entire-game">
       {
-        game.map((row, i) => <Row key={row + i} />)
+        game.map((row, i) => <Row key={row + i} y={i} />)
       }
     </div>
   );
