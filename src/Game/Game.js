@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { useGameContext } from '../GameProvider';
+import Row from '../Row/Row';
 
 export default function Game() {
-
-  const [word, setWord] = useState('apple');
+  const { correctWord, setCorrectWord, guessedWord, setGuessedWord } = useGameContext();
 
   return (
-    <div>
-
-    </div>
+    <form>
+      <Row correctWord={correctWord} />
+    </form>
   );
 }
