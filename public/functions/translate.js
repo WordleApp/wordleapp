@@ -6,7 +6,7 @@ exports.handler = async (event) => {
 
   try {
 
-    var subscriptionKey = '7b43cdbf6f034543a0f5881a4d163c65';
+    var subscriptionKey = process.env.REACT_APP_TRANSLATOR_KEY;
     var endpoint = 'https://api.cognitive.microsofttranslator.com';
 
 // Add your location, also known as region. The default is global.
@@ -36,8 +36,8 @@ exports.handler = async (event) => {
     }).then(function(response){
       console.log(JSON.stringify(response.data, null, 4));
     });
-    return { 
-      statusCode: 200, 
+    return {
+      statusCode: 200,
     //   body: json
     };
   } catch (error) {

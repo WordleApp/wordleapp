@@ -13,10 +13,6 @@ import AuthPage from './AuthPage/AuthPage';
 
 function App() {
   const [user, setUser] = useState();
-  
-
-
-  console.log(`|| user >`, user);
 
   return (
     <Router>
