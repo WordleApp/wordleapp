@@ -10,14 +10,30 @@ import { useEffect, useState } from 'react';
 import './App.css';
 // import userEvent from '@testing-library/user-event';
 import AuthPage from './AuthPage/AuthPage';
+import { useGameContext } from './GameProvider';
+import Game from './Game/Game';
 
 function App() {
-  const [user, setUser] = useState();
+  const { 
+    user, setUser 
+  } = useGameContext();
 
-  async function handleLogout() {
-    await logout();
-    setUser(null);
+  function handleLogout() {
+    logout();
+
+    setUser('');
   }
+
+  useEffect(() => {
+    async function getUserData(){
+      const currentUser = await getUser();
+      
+      setUser(currentUser);
+    }
+    getUserData();
+  }, []);
+
+  console.log(`|| user >`, user);
 
   return (
     <Router>
@@ -31,7 +47,7 @@ function App() {
                 <li className='nav-link'><NavLink to='#'>Two</NavLink></li>
                 <li className='nav-link'><NavLink to='#'>Three</NavLink></li>
                 <li>
-                  <button onClick={ handleLogout }>Logout</button>
+                  <NavLink to='/' onClick={ handleLogout }>Logout</NavLink>
                 </li>
               </ul>
             </header>
@@ -45,9 +61,11 @@ function App() {
                   : <Redirect to='/game' />
               }
             </Route>
-            <Route>
+            <Route exact path='/game'>
               {
-
+                !user
+                  ? <Redirect to='/' />
+                  : <Game />
               }
             </Route>
             <Route></Route>

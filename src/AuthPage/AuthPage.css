@@ -1,0 +1,31 @@
+.auth-section{
+  /* width: 500px; */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.auth-section h1{
+  margin-bottom: 20px;
+}
+
+.auth-form{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.button-div{
+  margin-top: 10px;
+  width: 100%;
+  gap: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-input {
+  margin-left: 10px;;
+}
