@@ -14,8 +14,8 @@ import { useGameContext } from './GameProvider';
 import Game from './Game/Game';
 
 function App() {
-  const { 
-    user, setUser 
+  const {
+    user, setUser
   } = useGameContext();
 
   function handleLogout() {
@@ -27,17 +27,19 @@ function App() {
   useEffect(() => {
     async function getUserData(){
       const currentUser = await getUser();
-      
+
       setUser(currentUser);
     }
     getUserData();
   }, []);
 
-  console.log(`|| user >`, user);
+  function handleKeyPress(e) {
+    console.log(e);
+  }
 
   return (
     <Router>
-      <div>
+      <div onKeyDown={e => handleKeyPress(e)}>
         {
           !user
             ? <header></header>
@@ -52,6 +54,7 @@ function App() {
               </ul>
             </header>
         }
+
         <main>
           <Switch>
             <Route exact path='/'>

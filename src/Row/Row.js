@@ -1,31 +1,47 @@
 // import { render } from '@testing-library/react';
 import { useGameContext } from '../GameProvider';
-import './Row';
+import './Row.css';
 
 export default function Row(){
   const {
-    correctWord
+    correctWord,
+    rows,
+    setRows
   } = useGameContext();
 
-  console.log(`|| correctWord >`, correctWord);
-
-  function renderBox(){ 
-    for (let i = 0; i < correctWord.length; i++){
-      return (
-        <div className={`box ${i}`}>
-          {`${i}`}
-        </div>
-      );
+  function renderSixRows() {
+    let rows = [];
+    for (let i = 0; i < 6; i++) {
+      rows.push(renderBox());
     }
+    return (
+      <div className="all-rows">
+        {
+          rows
+        }
+      </div>
+    );
   }
 
-
+  function renderBox(){
+    let arr = [];
+    for (let i = 0; i < correctWord.length; i++){
+      arr.push(<div className={`box ${i} row`}>{`${i}`}</div>);
+    }
+    return (
+      <div className="rows">
+        {
+          arr
+        }
+      </div>
+    );
+  }
 
   return (
     <>
       <form className='game-row'>
         {
-          renderBox()
+          renderSixRows()
         }
       </form>
     </>
