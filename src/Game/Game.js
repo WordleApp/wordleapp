@@ -38,7 +38,7 @@ export default function Game() {
 
   return (
     <div className="entire-game">
-      <input className='invisible-guess' autoFocus onChange={handleGuess} />
+      <input className='invisible-guess' autoFocus onChange={handleGuess} maxLength={correctWord.length} />
       {
         game.map((row, i) => <Row key={row + i} y={i} />)
       }
