@@ -14,6 +14,11 @@ import AuthPage from './AuthPage/AuthPage';
 function App() {
   const [user, setUser] = useState();
 
+  async function handleLogout() {
+    await logout();
+    setUser(null);
+  }
+
   return (
     <Router>
       <div>
@@ -25,6 +30,9 @@ function App() {
                 <li className='nav-link'><NavLink to='#'>One</NavLink></li>
                 <li className='nav-link'><NavLink to='#'>Two</NavLink></li>
                 <li className='nav-link'><NavLink to='#'>Three</NavLink></li>
+                <li>
+                  <button onClick={ handleLogout }>Logout</button>
+                </li>
               </ul>
             </header>
         }
@@ -34,7 +42,7 @@ function App() {
               {
                 !user
                   ? <AuthPage setUser={setUser} />
-                  : <Redirect to='#' user={user} />
+                  : <Redirect to='/game' user={user} />
               }
             </Route>
             <Route>
