@@ -1,36 +1,35 @@
 import { useEffect, useState } from 'react';
 import { useGameContext } from '../GameProvider';
+import './Game.css';
 import Row from '../Row/Row';
 import commonWords from '../common-words';
 
 export default function Game() {
-  const { 
+  const {
+    game,
+    setGame,
     user,
     correctWord,
-    setCorrectWord, 
-    guessedWord, 
-    setGuessedWord 
+    setCorrectWord,
+    guessedWord,
+    setGuessedWord
   } = useGameContext();
 
   useEffect(() => {
     function fetchWord() {
       const index = Math.floor(Math.random() * commonWords.length);
-
       setCorrectWord(commonWords[index]);
     }
-  
+
     fetchWord();
+    console.log(game);
   }, [user]);
 
   return (
-    <section>
+    <div className="entire-game">
       {
-        <Row />
+        game.map((row, i) => <Row key={row + i} />)
       }
-    </section>
-
-    // <form className='game-row'>
-    //   <Row />
-    // </form>
+    </div>
   );
 }

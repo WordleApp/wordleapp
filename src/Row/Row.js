@@ -1,52 +1,28 @@
 // import { render } from '@testing-library/react';
 import { useGameContext } from '../GameProvider';
 import Square from '../Square/Square';
+import { useEffect } from 'react';
 import './Row.css';
 
 export default function Row(){
   const {
     correctWord,
-    rows,
-    setRows
+    row,
+    setRow,
+    game,
+    setGame
   } = useGameContext();
 
-  function renderSixRows() {
-    let rows = [];
-    
-    // for (let i = 0; i < 6; i++) {
-    //   rows.push(renderBox(i));
-    // }
-    console.log(rows);
-    return (
-      <div className="all-rows">
-        {
-          rows.map((row, i) => <Square key={row + i} i={i}/>)
-        }
-      </div>
-    );
-  }
-
-  // function renderBox(x){
-  //   let arr = [];
-  //   for (let i = 0; i < correctWord.length; i++){
-  //     arr.push(<div key={x + i} className={`box x-${x} row y-${i}`}>{`${i}`}</div>);
-  //   }
-  //   return (
-  //     <div className="rows">
-  //       {
-  //         arr
-  //       }
-  //     </div>
-  //   );
-  // }
+  useEffect(() => {
+    const newRowArr = new Array(correctWord.length).fill('');
+    setRow(newRowArr);
+  }, [correctWord]);
 
   return (
-    <>
-      <form className='game-row'>
-        {
-          renderSixRows()
-        }
-      </form>
-    </>
+    <form className='game-row'>
+      {
+        row.map((square, i) => <Square key={square + i}/>)
+      }
+    </form>
   );
 }
