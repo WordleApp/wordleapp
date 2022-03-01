@@ -31,8 +31,14 @@ export default function Game() {
     // setGame(newGameArray);
   }
 
+  function handleGuess(e) {
+    // e => setGuessedWord(e.target.value)
+    console.log(e);
+  }
+
   return (
     <div className="entire-game">
+      <input className='invisible-guess' onChange={handleGuess} />
       {
         game.map((row, i) => <Row key={row + i} y={i} />)
       }
