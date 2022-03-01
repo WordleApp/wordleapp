@@ -17,7 +17,7 @@ export default function Row(){
     return (
       <div className="all-rows">
         {
-          rows.map((row) => row)
+          rows
         }
       </div>
     );
@@ -31,7 +31,7 @@ export default function Row(){
     return (
       <div className="rows">
         {
-          arr.map((row) => row)
+          arr
         }
       </div>
     );
