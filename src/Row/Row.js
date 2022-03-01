@@ -4,7 +4,7 @@ import Square from '../Square/Square';
 import { useEffect } from 'react';
 import './Row.css';
 
-export default function Row(){
+export default function Row({ y }){
   const {
     correctWord,
     row,
@@ -21,7 +21,7 @@ export default function Row(){
   return (
     <form className='game-row'>
       {
-        row.map((square, i) => <Square key={square + i}/>)
+        row.map((square, i) => <Square key={square + i} y={y} x={i} />)
       }
     </form>
   );

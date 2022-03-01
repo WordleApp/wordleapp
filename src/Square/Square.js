@@ -1,8 +1,9 @@
 import './Square.css';
 
-export default function Square() {
+export default function Square({ x, y }) {
   return (
-    <div className="square">
+    <div className={`square coord-${x}-${y}`} >
+
     </div>
   );
 }

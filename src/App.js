@@ -33,9 +33,9 @@ function App() {
     getUserData();
   }, []);
 
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyPress);
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('keydown', handleKeyPress);
+  // }, []);
 
   function handleKeyPress(e) {
     console.log(e.key);
