@@ -36,7 +36,6 @@ export default function Game() {
 
     translateWord();
 
-    // setGameState();
   }, []);
 
   function setGameState(input) {
@@ -49,6 +48,9 @@ export default function Game() {
     setGame([...game]);
   }
 
+  function checkGuess() {
+    
+  }
 
   async function handleGuess(e) {
     e.preventDefault();
@@ -60,12 +62,9 @@ export default function Game() {
     // put the jsonified data in state and set the loading state to false
     // const json = await response.json();
     // console.log(json);
+    // call the checkGuess function
     setRow(row + 1);
   }
-
-  // const handleBlur = (e) => setFieldValue(e.target.value);
-  // console.log(fieldValue);
-
 
   return (
     <div className="entire-game">
