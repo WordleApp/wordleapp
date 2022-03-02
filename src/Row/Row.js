@@ -7,6 +7,9 @@ import './Row.css';
 export default function Row({ y, currentRow }){
   const {
     correctWord,
+    queryWord,
+    definition,
+    setDefinition,
     row,
     setRow,
     game,
@@ -19,6 +22,20 @@ export default function Row({ y, currentRow }){
     fillArrays();
 
   }, [correctWord]);
+
+  useEffect(() => {
+    async function defineWord() {
+  
+      const response = await fetch(`/.netlify/functions/define?word=${queryWord}`);
+      const json = await response.json();
+      // console.log('response', response);
+      console.log('Word', queryWord);
+      // console.log('json', json);
+      setDefinition(json);
+    }
+
+    defineWord();
+  }, []);
 
   function fillArrays() {
     if (!(game[0].length > 0)) {
