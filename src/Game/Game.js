@@ -20,41 +20,45 @@ export default function Game() {
   } = useGameContext();
 
   useEffect(() => {
-    function fetchWord() {
+    async function fetchWord() {
       const index = Math.floor(Math.random() * commonWords.length);
-      setCorrectWord(commonWords[index]);
+      const response = await fetch(`/.netlify/functions/translate?word=${commonWords[index]}`);
+      const json = await response.json();
+      setCorrectWord(json);
     }
-    
+
     fetchWord();
-    
+
     // setGameState();
   }, []);
 
-  
 
-  function setGameState(currentGuess, e) {
-    e.preventDefault();
-    // as you type, this function should split the letters up into an array, save the array in state, and populate the boxes with the corresponding letters from the array
-    // const eachRow = new Array(correctWord.length);
-    // const newGameArray = game.map(() => eachRow);
-    // setGame(newGameArray);
-    const guessArray = currentGuess.split('');
 
+  function setGameState(input) {
+    let guessArray = input.split('');
+    while (guessArray.length < correctWord.length) {
+      guessArray.push('');
+    }
+    game[row] = guessArray;
+    setGame([...game]);
   }
 
-  function handleGuess(e) {
-    // on submit, this function should compare the array from setGameState to the array of correctWord.split() and change tile colors accordingly
-    // e => setGuessedWord(e.target.value)
+  async function handleGuess(e) {
+    e.preventDefault();
+    let word = game[row].join('');
 
-  } 
+    // put the jsonified data in state and set the loading state to false
+
+    setRow(row + 1);
+  }
 
   return (
     <div className="entire-game">
-      <form>
-        <input className='invisible-guess' autoFocus onChange={e => setGameState(e.target.value)} maxLength={correctWord.length} onSubmit={e => handleGuess(e)} />
+      <form onSubmit={e => handleGuess(e)}>
+        <input className='invisible-guess' autoFocus onChange={e => setGameState(e.target.value)} maxLength={correctWord.length}/>
       </form>
       {
-        game.map((row, i) => <Row key={row + i} y={i} />)
+        game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)
       }
     </div>
   );

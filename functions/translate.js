@@ -4,8 +4,10 @@ require('dotenv').config();
 
 exports.handler = async (event) => {
 
-  try {
 
+
+  try {
+    const queryWord = event.queryStringParameters.word;
     var subscriptionKey = process.env.REACT_APP_TRANSLATOR_KEY;
     var endpoint = 'https://api.cognitive.microsofttranslator.com';
 
@@ -27,17 +29,17 @@ exports.handler = async (event) => {
       params: {
         'api-version': '3.0',
         'from': 'en',
-        'to': ['de', 'it'],
+        'to': 'fr',
       },
       data: [{
-        'text': 'Hello World!',
+        'text': `${queryWord}`,
       }],
       responseType: 'json'
     }).then(function(response){
       console.log(JSON.stringify(response.data, null, 4));
     });
-    return { 
-      statusCode: 200, 
+    return {
+      statusCode: 200,
     //   body: json
     };
   } catch (error) {

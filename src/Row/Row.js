@@ -4,7 +4,7 @@ import Square from '../Square/Square';
 import { useEffect } from 'react';
 import './Row.css';
 
-export default function Row({ y }){
+export default function Row({ y, currentRow }){
   const {
     correctWord,
     row,
@@ -16,21 +16,21 @@ export default function Row({ y }){
   // const dummyArr = [];
 
   useEffect(() => {
-    const newRowArr = new Array(correctWord.length).fill('');
-    setRow(newRowArr);
     fillArrays();
 
   }, [correctWord]);
 
   function fillArrays() {
-    const newRowArr = new Array(correctWord.length).fill('');
-    const newGameArray = game.map(array => array = newRowArr);
-    setGame([...newGameArray]);
+    if (!(game[0].length > 0)) {
+      const newRowArr = new Array(correctWord.length).fill('');
+      const newGameArray = game.map(() => newRowArr);
+      setGame([...newGameArray]);
+    }
   }
   return (
     <form className='game-row'>
       {
-        row.map((square, i) => <Square key={square + i} y={y} x={i} />)
+        currentRow.map((letter, i) => <Square letter={ letter} key={letter + i} y={y} x={i} />)
       }
     </form>
   );
