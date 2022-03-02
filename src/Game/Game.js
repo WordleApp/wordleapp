@@ -20,9 +20,11 @@ export default function Game() {
   } = useGameContext();
 
   useEffect(() => {
-    function fetchWord() {
+    async function fetchWord() {
       const index = Math.floor(Math.random() * commonWords.length);
-      setCorrectWord(commonWords[index]);
+      const response = await fetch(`/.netlify/functions/translate?word=${commonWords[index]}`);
+      const json = await response.json();
+      setCorrectWord(json);
     }
 
     fetchWord();
@@ -41,11 +43,13 @@ export default function Game() {
     setGame([...game]);
   }
 
-  function handleGuess(e) {
+  async function handleGuess(e) {
     e.preventDefault();
-    // on submit, this function should compare the array from setGameState to the array of correctWord.split() and change tile colors accordingly
-    // e => setGuessedWord(e.target.value)
+    let word = game[row].join('');
 
+    // put the jsonified data in state and set the loading state to false
+
+    setRow(row + 1);
   }
 
   return (
