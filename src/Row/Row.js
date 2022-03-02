@@ -30,12 +30,14 @@ export default function Row({ y, currentRow }){
       const json = await response.json();
       // console.log('response', response);
       // console.log('queryword', queryWord);
+      console.log('correctWord', correctWord);
+
       // console.log('json', json);
       setDefinition(json);
     }
 
     defineWord();
-  }, []);
+  }, [correctWord]);
 
   function fillArrays() {
     if (!(game[0].length > 0)) {
