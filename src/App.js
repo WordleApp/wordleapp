@@ -18,6 +18,7 @@ function App() {
   const {
     user, setUser, 
     queryWord, setQueryWord,
+    fieldValue, setFieldValue,
   } = useGameContext();
 
   function handleLogout() {
