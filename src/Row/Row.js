@@ -29,7 +29,7 @@ export default function Row({ y, currentRow }){
       const response = await fetch(`/.netlify/functions/define?word=${queryWord}`);
       const json = await response.json();
       // console.log('response', response);
-      console.log('Word', queryWord);
+      // console.log('queryword', queryWord);
       // console.log('json', json);
       setDefinition(json);
     }

@@ -8,6 +8,7 @@ exports.handler = async (event) => {
 
   try {
     const queryWord = event.queryStringParameters.word;
+    console.log('queryWord', queryWord);
     var subscriptionKey = process.env.REACT_APP_TRANSLATOR_KEY;
     var endpoint = 'https://api.cognitive.microsofttranslator.com';
 

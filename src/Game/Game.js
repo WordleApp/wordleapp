@@ -28,10 +28,12 @@ export default function Game() {
       // randomly selects a word from commonWords, sends it to translator, returns correctWord
       const index = Math.floor(Math.random() * commonWords.length);
       setQueryWord(commonWords[index]);
+      console.log('queryWord', queryWord);
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
       const json = await response.json();
       console.log(json);
-      setCorrectWord(commonWords[index]);
+      setCorrectWord(json[0].translations[0].text);
+      console.log(correctWord);
     }
 
     fetchWord();
