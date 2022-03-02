@@ -15,10 +15,10 @@ exports.handler = async (event) => {
 // This is required if using a Cognitive Services resource.
     var location = 'global';
 
-    axios({
+    return axios({
       baseURL: endpoint,
       url: '/translate',
-      method: 'post',
+      method: 'POST',
       headers: {
         'Ocp-Apim-Subscription-Key': subscriptionKey,
         'Ocp-Apim-Subscription-Region': location,
@@ -37,11 +37,11 @@ exports.handler = async (event) => {
       responseType: 'json'
     }).then(function(response){
       console.log(JSON.stringify(response.data, null, 4));
+      return {
+        statusCode: 200,
+        body: JSON.stringify(response.data, null, 4)
+      };
     });
-    return {
-      statusCode: 200,
-    //   body: json
-    };
   } catch (error) {
     console.log(error);
     return {
