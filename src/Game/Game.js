@@ -30,7 +30,8 @@ export default function Game() {
       setQueryWord(commonWords[index]);
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
       const json = await response.json();
-      setCorrectWord(json);
+      console.log(json);
+      setCorrectWord(commonWords[index]);
     }
 
     fetchWord();
@@ -52,7 +53,8 @@ export default function Game() {
     let word = game[row].join('');
 
     // put the jsonified data in state and set the loading state to false
-
+    // const json = await response.json();
+    // console.log(json);
     setRow(row + 1);
   }
 
