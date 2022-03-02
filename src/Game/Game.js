@@ -9,6 +9,10 @@ export default function Game() {
     game,
     setGame,
     user,
+    row,
+    setRow,
+    columns,
+    setColumns,
     correctWord,
     setCorrectWord,
     guessedWord,
@@ -20,10 +24,13 @@ export default function Game() {
       const index = Math.floor(Math.random() * commonWords.length);
       setCorrectWord(commonWords[index]);
     }
-
+    
     fetchWord();
+    
     // setGameState();
-  }, [user]);
+  }, []);
+
+  
 
   function setGameState(currentGuess, e) {
     e.preventDefault();
@@ -31,7 +38,6 @@ export default function Game() {
     // const eachRow = new Array(correctWord.length);
     // const newGameArray = game.map(() => eachRow);
     // setGame(newGameArray);
-    console.log(currentGuess);
     const guessArray = currentGuess.split('');
 
   }
@@ -39,7 +45,6 @@ export default function Game() {
   function handleGuess(e) {
     // on submit, this function should compare the array from setGameState to the array of correctWord.split() and change tile colors accordingly
     // e => setGuessedWord(e.target.value)
-    console.log(e);
 
   } 
 

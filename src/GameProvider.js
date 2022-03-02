@@ -13,7 +13,10 @@ export default function GameProvider({ children }) {
   const [guessedWord, setGuessedWord] = useState();
   const [user, setUser] = useState();
   const [row, setRow] = useState([]);
+  const [columns, setColumns] = useState(0);
   const [game, setGame] = useState([[], [], [], [], [], []]);
+
+  
 
   const gameState = {
     wordPool, setWordPool,
@@ -21,6 +24,7 @@ export default function GameProvider({ children }) {
     guessedWord, setGuessedWord,
     user, setUser,
     row, setRow,
+    columns, setColumns,
     game, setGame
   };
 

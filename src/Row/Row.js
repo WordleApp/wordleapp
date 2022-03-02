@@ -13,11 +13,20 @@ export default function Row({ y }){
     setGame
   } = useGameContext();
 
+  // const dummyArr = [];
+
   useEffect(() => {
     const newRowArr = new Array(correctWord.length).fill('');
     setRow(newRowArr);
+    fillArrays();
+
   }, [correctWord]);
 
+  function fillArrays() {
+    const newRowArr = new Array(correctWord.length).fill('');
+    const newGameArray = game.map(array => array = newRowArr);
+    setGame([...newGameArray]);
+  }
   return (
     <form className='game-row'>
       {
