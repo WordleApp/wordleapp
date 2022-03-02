@@ -13,6 +13,10 @@ export default function Game() {
     setRow,
     columns,
     setColumns,
+    queryWord,
+    setQueryWord,
+    definition,
+    setDefinition,
     correctWord,
     setCorrectWord,
     guessedWord,
@@ -21,8 +25,10 @@ export default function Game() {
 
   useEffect(() => {
     async function fetchWord() {
+      // randomly selects a word from commonWords, sends it to translator, returns correctWord
       const index = Math.floor(Math.random() * commonWords.length);
-      const response = await fetch(`/.netlify/functions/translate?word=${commonWords[index]}`);
+      setQueryWord(commonWords[index]);
+      const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
       const json = await response.json();
       console.log(json);
       setCorrectWord(commonWords[index]);
@@ -32,8 +38,6 @@ export default function Game() {
 
     // setGameState();
   }, []);
-
-
 
   function setGameState(input) {
     let guessArray = input.split('');
