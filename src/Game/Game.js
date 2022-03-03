@@ -30,7 +30,6 @@ export default function Game() {
       console.log('queryWord', queryWord);
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
       const json = await response.json();
-      // console.log(json);
       setCorrectWord(json[0].translations[0].text);
     }
 
@@ -59,25 +58,25 @@ export default function Game() {
     setGame([...game]);
   }
 
-  function checkGuess(row) {
-    // let wordToCheckAgainst = correctWord.split('');
-    // for (let i = 0; i < row.length; i++) {
-    //   // const
-    //   if (wordToCheckAgainst.indexOf(row[i].letter)) {
-    //     game[row[i].letterInCorrectWord] = true;
-    //   }
-    // }
-    // console.log(game);
+  function checkGuess() {
+    let rightWord = correctWord.split('');
+    let guessWord = game[row].map((obj) => obj.letter);
+    for (let i = 0; i < guessWord.length; i++) {
+      if (rightWord.includes(guessWord[i])) {
+        game[row][i].letterInCorrectWord = true;
+      }
+      if (guessWord.indexOf(guessWord[i]) === rightWord.indexOf(guessWord[i])) {
+        game[row][i].letterInCorrectWordAndRightPlace = true;
+      }
+    }
+    setGame([...game]);
   }
 
   async function handleGuess(e) {
-    // e.preventDefault();
-    // setGuessedWord('');
-    // console.log('in handleGuess');
-    // let rowToCheck = game[row];
-    // // .map((obj) => obj.letter);
-    // checkGuess(rowToCheck);
-    // setRow(row + 1);
+    e.preventDefault();
+    setGuessedWord('');
+    checkGuess();
+    setRow(row + 1);
   }
 
   return (
