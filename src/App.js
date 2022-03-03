@@ -60,7 +60,11 @@ function App() {
       <div>
         {
           !user
-            ? <header></header>
+            ? <header>
+              <ul>
+                <li className='nav-link'><NavLink to='about'>About</NavLink></li>
+              </ul>
+            </header>
             : <header>
               <ul>
                 <li>

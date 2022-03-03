@@ -1,7 +1,9 @@
-import React from 'react';
-import './AboutUs.css';
+ABOUT PAGE
 
-export default function AboutUs() {
+import React from 'react';
+import './About.css';
+
+export default function About() {
   return (
     <>
   
@@ -87,3 +89,49 @@ export default function AboutUs() {
   );
 }
 
+
+
+ADD TO APP
+
+// ? <header>
+// <ul>
+//   <li className='nav-link'> <NavLink to='about'>About</NavLink></li>
+// </ul>
+
+// </header>
+
+ABOUT CSS
+
+body {
+  background-color: #E6DBD0;
+}
+
+.developers-container {
+  padding: 20px;
+  justify-content: space-around;
+}
+
+.name {
+  color: #7D6167;
+  font-family: 'EB Garamond', serif;
+  font-size: 20px;
+}
+
+.title {
+  color: #708B75;
+}
+
+a {
+  color: #8d9174;
+}
+
+.developer-bio {
+  width: 36vw;
+  text-align: right;
+  color: #464949;
+  font-family: 'EB Garamond', serif;;
+}
+
+ul {
+  list-style: none;
+}
