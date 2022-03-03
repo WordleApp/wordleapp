@@ -1,10 +1,6 @@
 import './Square.css';
-import useGameContext from '../GameProvider';
 
 export default function Square({ letterObj }) {
-  // const {
-  //   row
-  // } = useGameContext();
   
   function letterOrNot(){
     if (!letterObj.letterIsWrong){

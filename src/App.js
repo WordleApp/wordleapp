@@ -8,7 +8,6 @@ import {
 import { getUser, logout } from './services/fetch-utils';
 import { useEffect } from 'react';
 import './App.css';
-// import userEvent from '@testing-library/user-event';
 import AuthPage from './AuthPage/AuthPage';
 import { useGameContext } from './GameProvider';
 import Game from './Game/Game';
