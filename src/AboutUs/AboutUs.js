@@ -1,7 +1,7 @@
 import React from 'react';
 import './About.css';
 
-export default function About() {
+export default function AboutUs() {
   return (
     <>
   

@@ -1,28 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useGameContext } from '../GameProvider';
 import './Game.css';
 import Row from '../Row/Row';
-import commonWords from '../common-words';
 
 export default function Game() {
   const {
-    game,
-    setGame,
-    user,
-    row,
-    setRow,
-    columns,
-    setColumns,
-    queryWord,
-    setQueryWord,
-    definition,
-    setDefinition,
-    correctWord,
-    setCorrectWord,
-    guessedWord,
-    setGuessedWord,
-    fieldValue,
-    setFieldValue,
+    correctWord, setCorrectWord,
+    guessedWord, setGuessedWord,
+    game, setGame,
+    row, setRow,
+    queryWord, 
   } = useGameContext();
 
   useEffect(() => {
@@ -43,6 +30,7 @@ export default function Game() {
     let obj = guessArray.map((letter) => {
       return {
         letter: letter,
+        letterIsWrong: false, 
         letterInCorrectWord: false,
         letterInCorrectWordAndRightPlace: false
       };
@@ -50,6 +38,7 @@ export default function Game() {
     while (obj.length < correctWord.length) {
       obj.push({
         letter: '',
+        letterIsWrong: false,
         letterInCorrectWord: false,
         letterInCorrectWordAndRightPlace: false
       });
@@ -62,6 +51,7 @@ export default function Game() {
     let rightWord = correctWord.split('');
     let guessWord = game[row].map((obj) => obj.letter);
     for (let i = 0; i < guessWord.length; i++) {
+      game[row][i].letterIsWrong = true;
       if (rightWord.includes(guessWord[i])) {
         game[row][i].letterInCorrectWord = true;
       }
@@ -81,8 +71,17 @@ export default function Game() {
 
   return (
     <div className="entire-game">
+      <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
       <form onSubmit={e => handleGuess(e)}>
-        <input value={guessedWord} id='invisible-guess' className='invisible-guess' autoFocus onChange={e => setGameState(e.target.value)} maxLength={correctWord.length}/>
+        <input 
+          value={guessedWord} 
+          id='invisible-guess' 
+          className='invisible-guess' 
+          onChange={e => setGameState(e.target.value)} 
+          maxLength={correctWord.length}
+          minLength={correctWord.length}
+          autoFocus 
+        />
       </form>
       {
         game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)

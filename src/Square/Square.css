@@ -2,16 +2,26 @@
   min-width: 75px;
   min-height: 75px;
   border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  text-transform: uppercase;
 }
 
 .letterInCorrectWord {
-  background-color: black;
-  color: white
+  background-color: yellow;
+  color: black
 }
 
 .letterInCorrectWordAndRightPlace {
   background-color: green;
   color: white
+}
+
+.letterNotInWord{
+  background-color: black;
+  color: white;
 }
 
 /* letterInCorrectWordAndRightPlace */
