@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useGameContext } from '../GameProvider';
 import './Game.css';
 import Row from '../Row/Row';
+import { updateUserScore, getUserProfile } from '../services/fetch-utils.js';
 
 export default function Game() {
   const {
@@ -9,12 +10,11 @@ export default function Game() {
     guessedWord, setGuessedWord,
     game, setGame,
     row, setRow,
-    queryWord, 
+    queryWord,
   } = useGameContext();
 
   useEffect(() => {
     async function translateWord() {
-      console.log('queryWord', queryWord);
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
       const json = await response.json();
       setCorrectWord(json[0].translations[0].text);
@@ -30,7 +30,7 @@ export default function Game() {
     let obj = guessArray.map((letter) => {
       return {
         letter: letter,
-        letterIsWrong: false, 
+        letterIsWrong: false,
         letterInCorrectWord: false,
         letterInCorrectWordAndRightPlace: false
       };
@@ -45,6 +45,17 @@ export default function Game() {
     }
     game[row] = obj;
     setGame([...game]);
+  }
+
+  async function gameOver() {
+    // const userGames = await getAllGames();
+    let gameScore = 60;
+    let currentRow = row;
+    while (currentRow > 0) {
+      gameScore = gameScore - 10;
+      currentRow--;
+    }
+    await updateUserScore(gameScore);
   }
 
   function checkGuess() {
@@ -66,21 +77,25 @@ export default function Game() {
     e.preventDefault();
     setGuessedWord('');
     checkGuess();
-    setRow(row + 1);
+    if (row === 5) {
+      gameOver();
+    } else {
+      setRow(row + 1);
+    }
   }
 
   return (
     <div className="entire-game">
       <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
       <form onSubmit={e => handleGuess(e)}>
-        <input 
-          value={guessedWord} 
-          id='invisible-guess' 
-          className='invisible-guess' 
-          onChange={e => setGameState(e.target.value)} 
+        <input
+          value={guessedWord}
+          id='invisible-guess'
+          className='invisible-guess'
+          onChange={e => setGameState(e.target.value)}
           maxLength={correctWord.length}
           minLength={correctWord.length}
-          autoFocus 
+          autoFocus
         />
       </form>
       {
