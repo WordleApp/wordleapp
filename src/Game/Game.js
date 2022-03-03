@@ -41,40 +41,43 @@ export default function Game() {
   function setGameState(input) {
     let guessArray = input.split('');
     setGuessedWord(input);
-    while (guessArray.length < correctWord.length) {
-      guessArray.push('');
+    let obj = guessArray.map((letter) => {
+      return {
+        letter: letter,
+        letterInCorrectWord: false,
+        letterInCorrectWordAndRightPlace: false
+      };
+    });
+    while (obj.length < correctWord.length) {
+      obj.push({
+        letter: '',
+        letterInCorrectWord: false,
+        letterInCorrectWordAndRightPlace: false
+      });
     }
-    game[row] = guessArray;
+    game[row] = obj;
     setGame([...game]);
   }
 
-  function checkGuess() {
-    if (guessedWord === correctWord) {
-      return;
-    } else {
-      for (let i = 0; i < correctWord.length; i++) {
-        let guessedWordLetter = guessedWord[i];
-        if (!correctWord.includes(guessedWordLetter)){
-          guessedWordLetter.classList.add('black');
-        }
-        
-      }
-    }
+  function checkGuess(row) {
+    // let wordToCheckAgainst = correctWord.split('');
+    // for (let i = 0; i < row.length; i++) {
+    //   // const
+    //   if (wordToCheckAgainst.indexOf(row[i].letter)) {
+    //     game[row[i].letterInCorrectWord] = true;
+    //   }
+    // }
+    // console.log(game);
   }
 
   async function handleGuess(e) {
-    e.preventDefault();
-  
-    setGuessedWord('');
-    let word = game[row].join('');
-    console.log(word);
-
-    // put the jsonified data in state and set the loading state to false
-    // const json = await response.json();
-    // console.log(json);
-    // call the checkGuess function
-    checkGuess();
-    setRow(row + 1);
+    // e.preventDefault();
+    // setGuessedWord('');
+    // console.log('in handleGuess');
+    // let rowToCheck = game[row];
+    // // .map((obj) => obj.letter);
+    // checkGuess(rowToCheck);
+    // setRow(row + 1);
   }
 
   return (

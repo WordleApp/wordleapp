@@ -3,3 +3,10 @@
   min-height: 75px;
   border: 1px solid black;
 }
+
+.letterInCorrectWord {
+  background-color: black;
+  color: white
+}
+
+/* letterInCorrectWordAndRightPlace */
