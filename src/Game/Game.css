@@ -1,3 +1,8 @@
 /* .invisible-guess {
   opacity: 0;
 } */
+
+.black {
+  background-color: black;
+  color: white;
+}

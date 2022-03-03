@@ -49,7 +49,17 @@ export default function Game() {
   }
 
   function checkGuess() {
-    
+    if (guessedWord === correctWord) {
+      return;
+    } else {
+      for (let i = 0; i < correctWord.length; i++) {
+        let guessedWordLetter = guessedWord[i];
+        if (!correctWord.includes(guessedWordLetter)){
+          guessedWordLetter.classList.add('black');
+        }
+        
+      }
+    }
   }
 
   async function handleGuess(e) {
@@ -63,6 +73,7 @@ export default function Game() {
     // const json = await response.json();
     // console.log(json);
     // call the checkGuess function
+    checkGuess();
     setRow(row + 1);
   }
 
