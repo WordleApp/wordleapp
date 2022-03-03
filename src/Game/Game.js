@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useGameContext } from '../GameProvider';
 import './Game.css';
 import Row from '../Row/Row';
-import { updateUserScore, getUserProfile } from '../services/fetch-utils.js';
+import { updateUserScore } from '../services/fetch-utils.js';
 
 export default function Game() {
   const {
