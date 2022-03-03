@@ -15,6 +15,7 @@ export default function Game() {
     isLoss, setIsLoss,
   } = useGameContext();
 
+
   useEffect(() => {
     async function translateWord() {
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
@@ -23,9 +24,9 @@ export default function Game() {
     }
 
     translateWord();
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(correctWord);
+
   function setGameState(input) {
     let guessArray = input.split('');
     setGuessedWord(input);
