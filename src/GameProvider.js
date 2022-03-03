@@ -22,7 +22,7 @@ export default function GameProvider({ children }) {
   const [guessedWord, setGuessedWord] = useState();
   const [user, setUser] = useState();
   const [row, setRow] = useState(0);
-  const [columns, setColumns] = useState(0);
+  const [location, setLocation] = useState('/game');
   const [game, setGame] = useState([[], [], [], [], [], []]);
 
 
@@ -37,7 +37,7 @@ export default function GameProvider({ children }) {
     guessedWord, setGuessedWord,
     user, setUser,
     row, setRow,
-    columns, setColumns,
+    location, setLocation,
     game, setGame
   };
 
