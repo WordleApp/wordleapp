@@ -1,3 +1,8 @@
+import { 
+  NavLink, 
+  Redirect,
+  BrowserRouter as Router,
+} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useGameContext } from '../GameProvider';
 import './Game.css';
@@ -9,7 +14,9 @@ export default function Game() {
     guessedWord, setGuessedWord,
     game, setGame,
     row, setRow,
-    queryWord, 
+    queryWord,
+    isWin, setIsWin, 
+    isLoss, setIsLoss,
   } = useGameContext();
 
   useEffect(() => {
@@ -17,7 +24,7 @@ export default function Game() {
       console.log('queryWord', queryWord);
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
       const json = await response.json();
-      setCorrectWord(json[0].translations[0].text);
+      await setCorrectWord(json[0].translations[0].text);
     }
 
     translateWord();
@@ -67,25 +74,66 @@ export default function Game() {
     setGuessedWord('');
     checkGuess();
     setRow(row + 1);
+    checkWin();
+    if (guessedWord.toLowerCase() === correctWord.toLowerCase()){
+      setIsWin(true);
+    }
   }
 
+  function checkWin(){
+    if (row > 4){
+      setIsLoss(true);
+    } else {
+      setIsLoss(false);
+    }
+  }
+
+  function newGame(){
+    setRow(0);
+    setGame([[], [], [], [], [], []]);
+  }
+
+  console.log(`|| correctWord >`, correctWord);
+
   return (
-    <div className="entire-game">
-      <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
-      <form onSubmit={e => handleGuess(e)}>
-        <input 
-          value={guessedWord} 
-          id='invisible-guess' 
-          className='invisible-guess' 
-          onChange={e => setGameState(e.target.value)} 
-          maxLength={correctWord.length}
-          minLength={correctWord.length}
-          autoFocus 
-        />
+    <>
+      <div className="entire-game">
+        <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
+        <form onSubmit={e => handleGuess(e)}>
+          <input 
+            value={guessedWord} 
+            id='invisible-guess' 
+            className='invisible-guess' 
+            onChange={e => setGameState(e.target.value)} 
+            maxLength={correctWord.length}
+            minLength={correctWord.length}
+            required
+            autoFocus 
+          />
+        </form>
+        {
+          game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)
+        }
+      </div>
+      <form 
+        onSubmit={newGame} 
+        className=
+          {`
+            modal 
+            ${isWin ? 'visible' : 'hidden'}
+            ${isLoss ? 'visible' : 'hidden'}
+          `}>
+        <div className="game-over-div">
+          {
+            isWin 
+              ? <h1>You Win</h1>
+              : <h1>Game Over</h1>
+          }
+          <div className="data-vis"></div>
+          <button onClick={newGame} className='new-game-button'>New Game</button>
+        </div>
       </form>
-      {
-        game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)
-      }
-    </div>
+    </>
+
   );
 }

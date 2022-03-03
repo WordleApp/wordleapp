@@ -24,6 +24,8 @@ export default function GameProvider({ children }) {
   const [row, setRow] = useState(0);
   const [location, setLocation] = useState('/game');
   const [game, setGame] = useState([[], [], [], [], [], []]);
+  const [isWin, setIsWin] = useState(false);
+  const [isLoss, setIsLoss] = useState(false);
 
 
 
@@ -38,7 +40,9 @@ export default function GameProvider({ children }) {
     user, setUser,
     row, setRow,
     location, setLocation,
-    game, setGame
+    game, setGame,
+    isWin, setIsWin,
+    isLoss, setIsLoss,
   };
 
   return (

@@ -1,5 +1,10 @@
-body {
+.about-us-div {
   background-color: #E6DBD0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .developers-container {
