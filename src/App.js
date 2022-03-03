@@ -17,7 +17,7 @@ import Statistics from './Statistics/Statistics';
 
 function App() {
   const {
-    user, setUser, 
+    user, setUser,
     setQueryWord,
   } = useGameContext();
 
@@ -34,12 +34,13 @@ function App() {
       setUser(currentUser);
     }
     getUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const index = Math.floor(Math.random() * commonWords.length);
     setQueryWord(commonWords[index]);
-    
+
   }, []);
 
   return (
