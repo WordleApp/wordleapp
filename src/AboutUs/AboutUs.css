@@ -7,6 +7,18 @@ body {
   justify-content: space-around;
 }
 
+.developer-bio ul{
+  width: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px 0;
+}
+
+.developer-bio{
+  margin-bottom: 20px;;
+}
+
 .name {
   color: #7D6167;
   font-family: 'EB Garamond', serif;
@@ -26,8 +38,4 @@ a {
   text-align: right;
   color: #464949;
   font-family: 'EB Garamond', serif;;
-}
-
-ul {
-  list-style: none;
 }
