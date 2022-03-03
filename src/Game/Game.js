@@ -26,12 +26,6 @@ export default function Game() {
 
   }, []);
 
-  async function handleLanguageSelect(e) {
-    e.preventDefault();
-    // setLanguage?
-
-  }
-
   function setGameState(input) {
     let guessArray = input.split('');
     setGuessedWord(input);

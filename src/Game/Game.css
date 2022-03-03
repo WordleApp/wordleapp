@@ -13,3 +13,7 @@
   background-color: black;
   color: white;
 }
+
+.language-selector {
+  pointer-events: all;
+}

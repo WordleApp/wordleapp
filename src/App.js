@@ -20,6 +20,9 @@ function App() {
     user, setUser, 
     setQueryWord,
     location, setLocation,
+    language, setLanguage,
+    queryWord,
+    correctWord, setCorrectWord
   } = useGameContext();
 
   function handleLogout() {
@@ -55,6 +58,17 @@ function App() {
     setLocation('/statistics');
   }
 
+  async function handleLanguageSelect(e) {
+    e.preventDefault();
+    setLanguage(e.target.value);
+    const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
+    const json = await response.json();
+    setCorrectWord(json[0].translations[0].text);
+    console.log('|| json[0]', response);
+  }
+  console.log('|| language', language);
+  console.log('|| correctWord', correctWord);
+
   return (
     <Router>
       <div>
@@ -67,6 +81,15 @@ function App() {
             </header>
             : <header>
               <ul>
+                <li>
+                  <select className='language-selector' onChange={handleLanguageSelect}>
+                    <option value='fr'>French</option>
+                    <option value='es'>Spanish</option>
+                    <option value='it'>Italian</option>
+                    <option value='pt-pt'>Portuguese</option>
+                    <option value='de'>German</option>
+                  </select>
+                </li>
                 <li>
                   <NavLink onClick={game} to='/game'>Game</NavLink>
                 </li>
