@@ -25,14 +25,11 @@ export default function Row({ y, currentRow }){
 
   useEffect(() => {
     async function defineWord() {
-  
+
       const response = await fetch(`/.netlify/functions/define?word=${queryWord}`);
       const json = await response.json();
       // console.log('response', response);
-      console.log('queryword', queryWord);
-      // console.log('correctWord', correctWord);
-
-      console.log('json', json[0].meanings[0].definitions[0].definition);
+      console.log('correctWord', correctWord);
       setDefinition(json);
     }
 
@@ -41,7 +38,11 @@ export default function Row({ y, currentRow }){
 
   function fillArrays() {
     if (!(game[0].length > 0)) {
-      const newRowArr = new Array(correctWord.length).fill('');
+      const newRowArr = new Array(correctWord.length).fill({
+        letter: '',
+        letterInCorrectWord: false,
+        letterInCorrectWordAndRightPlace: false
+      });
       const newGameArray = game.map(() => newRowArr);
       setGame([...newGameArray]);
     }
@@ -54,7 +55,7 @@ export default function Row({ y, currentRow }){
   return (
     <form className='game-row'>
       {
-        currentRow.map((letter, i) => <Square letter={ letter} key={letter + i} y={y} x={i} />)
+        currentRow.map((letterObj, i) => <Square letterObj={ letterObj} key={letterObj + i} y={y} x={i} />)
       }
     </form>
   );
