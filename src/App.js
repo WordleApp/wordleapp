@@ -64,22 +64,13 @@ function App() {
             : <header>
               <ul>
                 <li>
-                  {
-                    location !== '/about-us'
-                      && <NavLink onClick={aboutUs} to='/about-us'>About Us</NavLink>
-                  }
+                  <NavLink onClick={game} to='/game'>Game</NavLink>
                 </li>
                 <li>
-                  {
-                    location !== '/game'
-                      && <NavLink onClick={game} to='/game'>Game</NavLink>
-                  }
+                  <NavLink onClick={aboutUs} to='/about-us'>About Us</NavLink>
                 </li>
                 <li>
-                  {
-                    location !== '/statistics'
-                      && <NavLink onClick={statistics} to='/statistics'>Statistics</NavLink>
-                  }
+                  <NavLink onClick={statistics} to='/statistics'>Statistics</NavLink>
                 </li>
                 <li>
                   <NavLink to='/' onClick={ handleLogout }>Logout</NavLink>
