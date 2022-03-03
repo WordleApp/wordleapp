@@ -40,7 +40,7 @@ function App() {
   useEffect(() => {
     const index = Math.floor(Math.random() * commonWords.length);
     setQueryWord(commonWords[index]);
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
