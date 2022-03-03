@@ -4,19 +4,14 @@ import Square from '../Square/Square';
 import { useEffect } from 'react';
 import './Row.css';
 
-export default function Row({ y, currentRow }){
+export default function Row({ currentRow }){
   const {
     correctWord,
     queryWord,
-    definition,
     setDefinition,
-    row,
-    setRow,
     game,
     setGame
   } = useGameContext();
-
-  // const dummyArr = [];
 
   useEffect(() => {
     fillArrays();
@@ -28,8 +23,7 @@ export default function Row({ y, currentRow }){
 
       const response = await fetch(`/.netlify/functions/define?word=${queryWord}`);
       const json = await response.json();
-      // console.log('response', response);
-      console.log('correctWord', correctWord);
+
       setDefinition(json);
     }
 
@@ -48,14 +42,10 @@ export default function Row({ y, currentRow }){
     }
   }
 
-  // document.getElementById('invisible-guess').onblur = function(event) { var blurEl = this; setTimeout(function(){blurEl.focus();
-  // }, 10);
-  // };
-
   return (
     <form className='game-row'>
       {
-        currentRow.map((letterObj, i) => <Square letterObj={ letterObj} key={letterObj + i} y={y} x={i} />)
+        currentRow.map((letterObj, i) => <Square letterObj={ letterObj} key={letterObj + i} />)
       }
     </form>
   );

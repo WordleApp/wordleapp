@@ -1,7 +1,7 @@
 import { useGameContext } from '../GameProvider';
 import Square from '../Square/Square';
 
-export default function FormRow({ y }){
+export default function FormRow(){
   const {
     correctWord
   } = useGameContext();
@@ -14,9 +14,8 @@ export default function FormRow({ y }){
 
   return (
     <form>
-      {y}
       {
-        correctWordArr.map((word, i) => <Square key={word + i} y={y} x={i} />)
+        correctWordArr.map((word, i) => <Square key={word + i} word={word} />)
       }
     </form>    
   );
