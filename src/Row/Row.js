@@ -10,7 +10,8 @@ export default function Row({ currentRow }){
     queryWord,
     setDefinition,
     game,
-    setGame
+    setGame,
+    language
   } = useGameContext();
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Row({ currentRow }){
       setGame([...newGameArray]);
     }
   }
-
+  console.log('||', language);
   return (
     <form className='game-row'>
       {

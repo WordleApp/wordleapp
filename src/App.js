@@ -64,7 +64,7 @@ function App() {
     const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
     const json = await response.json();
     setCorrectWord(json[0].translations[0].text);
-    console.log('|| json[0]', response);
+    console.log('|| json[0]', json[0]);
   }
   console.log('|| language', language);
   console.log('|| correctWord', correctWord);
