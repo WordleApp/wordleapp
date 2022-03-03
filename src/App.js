@@ -19,7 +19,6 @@ function App() {
   const {
     user, setUser, 
     setQueryWord,
-    location, setLocation,
   } = useGameContext();
 
   function handleLogout() {
@@ -49,9 +48,6 @@ function App() {
         {
           !user
             ? <header>
-              {/* <ul>
-                <li className='nav-link'><NavLink to='about'>About</NavLink></li>
-              </ul> */}
             </header>
             : <header>
               <ul>

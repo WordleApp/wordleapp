@@ -1,8 +1,3 @@
-import { 
-  NavLink, 
-  Redirect,
-  BrowserRouter as Router,
-} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useGameContext } from '../GameProvider';
 import './Game.css';
@@ -21,16 +16,16 @@ export default function Game() {
 
   useEffect(() => {
     async function translateWord() {
-      console.log('queryWord', queryWord);
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
       const json = await response.json();
       await setCorrectWord(json[0].translations[0].text);
     }
-
+    
     translateWord();
-
+    
   }, []);
-
+  
+  console.log(`|| correctWord >`, correctWord);
   function setGameState(input) {
     let guessArray = input.split('');
     setGuessedWord(input);
@@ -93,7 +88,7 @@ export default function Game() {
     setGame([[], [], [], [], [], []]);
   }
 
-  console.log(`|| correctWord >`, correctWord);
+  let average = 20;
 
   return (
     <>
