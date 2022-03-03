@@ -19,7 +19,6 @@ function App() {
   const {
     user, setUser, 
     setQueryWord,
-    location, setLocation,
   } = useGameContext();
 
   function handleLogout() {
@@ -43,38 +42,23 @@ function App() {
     
   }, []);
 
-  function aboutUs(){
-    setLocation('/about-us');  
-  }
-  
-  function game(){
-    setLocation('/game');
-  }
-
-  function statistics(){
-    setLocation('/statistics');
-  }
-
   return (
     <Router>
       <div>
         {
           !user
             ? <header>
-              <ul>
-                <li className='nav-link'><NavLink to='about'>About</NavLink></li>
-              </ul>
             </header>
             : <header>
               <ul>
                 <li>
-                  <NavLink onClick={game} to='/game'>Game</NavLink>
+                  <NavLink to='/game'>Game</NavLink>
                 </li>
                 <li>
-                  <NavLink onClick={aboutUs} to='/about-us'>About Us</NavLink>
+                  <NavLink to='/about-us'>About Us</NavLink>
                 </li>
                 <li>
-                  <NavLink onClick={statistics} to='/statistics'>Statistics</NavLink>
+                  <NavLink to='/statistics'>Statistics</NavLink>
                 </li>
                 <li>
                   <NavLink to='/' onClick={ handleLogout }>Logout</NavLink>

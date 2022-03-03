@@ -11,19 +11,21 @@ export default function Game() {
     game, setGame,
     row, setRow,
     queryWord,
+    isWin, setIsWin,
+    isLoss, setIsLoss,
   } = useGameContext();
 
   useEffect(() => {
     async function translateWord() {
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
       const json = await response.json();
-      setCorrectWord(json[0].translations[0].text);
+      await setCorrectWord(json[0].translations[0].text);
     }
 
     translateWord();
 
   }, []);
-
+  console.log(correctWord);
   function setGameState(input) {
     let guessArray = input.split('');
     setGuessedWord(input);
@@ -48,14 +50,7 @@ export default function Game() {
   }
 
   async function gameOver() {
-    // const userGames = await getAllGames();
-    let gameScore = 60;
-    let currentRow = row;
-    while (currentRow > 0) {
-      gameScore = gameScore - 10;
-      currentRow--;
-    }
-    await updateUserScore(gameScore);
+    await updateUserScore(60 - (row * 10));
   }
 
   function checkGuess() {
@@ -77,30 +72,66 @@ export default function Game() {
     e.preventDefault();
     setGuessedWord('');
     checkGuess();
-    if (row === 5) {
+    setRow(row + 1);
+    checkWin();
+    if (guessedWord.toLowerCase() === correctWord.toLowerCase()){
+      setIsWin(true);
       gameOver();
-    } else {
-      setRow(row + 1);
     }
   }
 
+  function checkWin(){
+    if (row > 4){
+      setIsLoss(true);
+    } else {
+      setIsLoss(false);
+    }
+  }
+
+  function newGame(){
+    setRow(0);
+    setGame([[], [], [], [], [], []]);
+  }
+
   return (
-    <div className="entire-game">
-      <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
-      <form onSubmit={e => handleGuess(e)}>
-        <input
-          value={guessedWord}
-          id='invisible-guess'
-          className='invisible-guess'
-          onChange={e => setGameState(e.target.value)}
-          maxLength={correctWord.length}
-          minLength={correctWord.length}
-          autoFocus
-        />
+    <>
+      <div className="entire-game">
+        <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
+        <form onSubmit={e => handleGuess(e)}>
+          <input
+            value={guessedWord}
+            id='invisible-guess'
+            className='invisible-guess'
+            onChange={e => setGameState(e.target.value)}
+            maxLength={correctWord.length}
+            minLength={correctWord.length}
+            required
+            autoFocus
+          />
+        </form>
+        {
+          game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)
+        }
+      </div>
+      <form
+        onSubmit={newGame}
+        className=
+          {`
+          modal
+          ${isWin ? 'visible' : 'hidden'}
+          ${isLoss ? 'visible' : 'hidden'}
+        `}>
+        <div className="game-over-div">
+          {
+            isWin
+              ? <h1>You Win</h1>
+              : <h1>Game Over</h1>
+          }
+          <div className="data-vis"></div>
+          <button onClick={newGame} className='new-game-button'>New Game</button>
+        </div>
       </form>
-      {
-        game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)
-      }
-    </div>
+    </>
+
   );
 }
