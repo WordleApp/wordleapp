@@ -20,27 +20,27 @@ export default function Game() {
     correctWord,
     setCorrectWord,
     guessedWord,
-    setGuessedWord
+    setGuessedWord,
+    fieldValue,
+    setFieldValue,
   } = useGameContext();
 
   useEffect(() => {
-    async function fetchWord() {
-      // randomly selects a word from commonWords, sends it to translator, returns correctWord
-      const index = Math.floor(Math.random() * commonWords.length);
-      setQueryWord(commonWords[index]);
+    async function translateWord() {
+      console.log('queryWord', queryWord);
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
       const json = await response.json();
-      console.log(json);
-      setCorrectWord(commonWords[index]);
+      // console.log(json);
+      setCorrectWord(json[0].translations[0].text);
     }
 
-    fetchWord();
+    translateWord();
 
-    // setGameState();
   }, []);
 
   function setGameState(input) {
     let guessArray = input.split('');
+    setGuessedWord(input);
     while (guessArray.length < correctWord.length) {
       guessArray.push('');
     }
@@ -48,20 +48,39 @@ export default function Game() {
     setGame([...game]);
   }
 
+  function checkGuess() {
+    if (guessedWord === correctWord) {
+      return;
+    } else {
+      for (let i = 0; i < correctWord.length; i++) {
+        let guessedWordLetter = guessedWord[i];
+        if (!correctWord.includes(guessedWordLetter)){
+          guessedWordLetter.classList.add('black');
+        }
+        
+      }
+    }
+  }
+
   async function handleGuess(e) {
     e.preventDefault();
+  
+    setGuessedWord('');
     let word = game[row].join('');
+    console.log(word);
 
     // put the jsonified data in state and set the loading state to false
     // const json = await response.json();
     // console.log(json);
+    // call the checkGuess function
+    checkGuess();
     setRow(row + 1);
   }
 
   return (
     <div className="entire-game">
       <form onSubmit={e => handleGuess(e)}>
-        <input className='invisible-guess' autoFocus onChange={e => setGameState(e.target.value)} maxLength={correctWord.length}/>
+        <input value={guessedWord} id='invisible-guess' className='invisible-guess' autoFocus onChange={e => setGameState(e.target.value)} maxLength={correctWord.length}/>
       </form>
       {
         game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)

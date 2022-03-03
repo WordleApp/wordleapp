@@ -5,17 +5,20 @@ import {
   Redirect,
   NavLink,
 } from 'react-router-dom';
-import { getUser, logout, getOwnage } from './services/fetch-utils';
+import { getUser, logout } from './services/fetch-utils';
 import { useEffect, useState } from 'react';
 import './App.css';
 // import userEvent from '@testing-library/user-event';
 import AuthPage from './AuthPage/AuthPage';
 import { useGameContext } from './GameProvider';
 import Game from './Game/Game';
+import commonWords from './common-words';
 
 function App() {
   const {
-    user, setUser
+    user, setUser, 
+    queryWord, setQueryWord,
+    fieldValue, setFieldValue,
   } = useGameContext();
 
   function handleLogout() {
@@ -33,6 +36,13 @@ function App() {
     getUserData();
   }, []);
 
+  useEffect(() => {
+    const index = Math.floor(Math.random() * commonWords.length);
+    setQueryWord(commonWords[index]);
+    
+  }, []);
+
+  
   // useEffect(() => {
   //   window.addEventListener('keydown', handleKeyPress);
   // }, []);

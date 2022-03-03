@@ -29,13 +29,15 @@ export default function Row({ y, currentRow }){
       const response = await fetch(`/.netlify/functions/define?word=${queryWord}`);
       const json = await response.json();
       // console.log('response', response);
-      console.log('Word', queryWord);
-      // console.log('json', json);
+      console.log('queryword', queryWord);
+      // console.log('correctWord', correctWord);
+
+      console.log('json', json[0].meanings[0].definitions[0].definition);
       setDefinition(json);
     }
 
     defineWord();
-  }, []);
+  }, [correctWord]);
 
   function fillArrays() {
     if (!(game[0].length > 0)) {
@@ -44,6 +46,11 @@ export default function Row({ y, currentRow }){
       setGame([...newGameArray]);
     }
   }
+
+  // document.getElementById('invisible-guess').onblur = function(event) { var blurEl = this; setTimeout(function(){blurEl.focus();
+  // }, 10);
+  // };
+
   return (
     <form className='game-row'>
       {

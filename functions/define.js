@@ -5,7 +5,7 @@ require('dotenv').config();
 exports.handler = async (event) => {
   try {
     // grab the same word sent to the translate function and feed it into this dictionary endpoint
-    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${event.queryStringParameters.queryWord}`);
+    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${event.queryStringParameters.word}`);
     
 
     const json = await response.json();
