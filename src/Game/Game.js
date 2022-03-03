@@ -5,6 +5,7 @@ import Row from '../Row/Row';
 
 export default function Game() {
   const {
+    language, setLanguage,
     correctWord, setCorrectWord,
     guessedWord, setGuessedWord,
     game, setGame,
@@ -15,7 +16,8 @@ export default function Game() {
   useEffect(() => {
     async function translateWord() {
       console.log('queryWord', queryWord);
-      const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
+      console.log('correctWord', correctWord);
+      const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
       const json = await response.json();
       setCorrectWord(json[0].translations[0].text);
     }
@@ -23,6 +25,12 @@ export default function Game() {
     translateWord();
 
   }, []);
+
+  async function handleLanguageSelect(e) {
+    e.preventDefault();
+    // setLanguage?
+
+  }
 
   function setGameState(input) {
     let guessArray = input.split('');
