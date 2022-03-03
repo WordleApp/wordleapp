@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useGameContext } from '../GameProvider';
 import './Game.css';
 import Row from '../Row/Row';
+import { updateUserScore, getUserProfile } from '../services/fetch-utils.js';
 
 export default function Game() {
   const {
@@ -10,7 +11,7 @@ export default function Game() {
     game, setGame,
     row, setRow,
     queryWord,
-    isWin, setIsWin, 
+    isWin, setIsWin,
     isLoss, setIsLoss,
   } = useGameContext();
 
@@ -20,19 +21,18 @@ export default function Game() {
       const json = await response.json();
       await setCorrectWord(json[0].translations[0].text);
     }
-    
+
     translateWord();
-    
+
   }, []);
-  
-  console.log(`|| correctWord >`, correctWord);
+  console.log(correctWord);
   function setGameState(input) {
     let guessArray = input.split('');
     setGuessedWord(input);
     let obj = guessArray.map((letter) => {
       return {
         letter: letter,
-        letterIsWrong: false, 
+        letterIsWrong: false,
         letterInCorrectWord: false,
         letterInCorrectWordAndRightPlace: false
       };
@@ -47,6 +47,10 @@ export default function Game() {
     }
     game[row] = obj;
     setGame([...game]);
+  }
+
+  async function gameOver() {
+    await updateUserScore(60 - (row * 10));
   }
 
   function checkGuess() {
@@ -72,6 +76,7 @@ export default function Game() {
     checkWin();
     if (guessedWord.toLowerCase() === correctWord.toLowerCase()){
       setIsWin(true);
+      gameOver();
     }
   }
 
@@ -88,39 +93,37 @@ export default function Game() {
     setGame([[], [], [], [], [], []]);
   }
 
-  let average = 20;
-
   return (
     <>
       <div className="entire-game">
         <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
         <form onSubmit={e => handleGuess(e)}>
-          <input 
-            value={guessedWord} 
-            id='invisible-guess' 
-            className='invisible-guess' 
-            onChange={e => setGameState(e.target.value)} 
+          <input
+            value={guessedWord}
+            id='invisible-guess'
+            className='invisible-guess'
+            onChange={e => setGameState(e.target.value)}
             maxLength={correctWord.length}
             minLength={correctWord.length}
             required
-            autoFocus 
+            autoFocus
           />
         </form>
         {
           game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)
         }
       </div>
-      <form 
-        onSubmit={newGame} 
+      <form
+        onSubmit={newGame}
         className=
           {`
-            modal 
-            ${isWin ? 'visible' : 'hidden'}
-            ${isLoss ? 'visible' : 'hidden'}
-          `}>
+          modal
+          ${isWin ? 'visible' : 'hidden'}
+          ${isLoss ? 'visible' : 'hidden'}
+        `}>
         <div className="game-over-div">
           {
-            isWin 
+            isWin
               ? <h1>You Win</h1>
               : <h1>Game Over</h1>
           }
