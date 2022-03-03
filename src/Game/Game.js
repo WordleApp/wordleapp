@@ -24,7 +24,7 @@ export default function Game() {
 
     translateWord();
 
-  }, []);
+  }, [language]);
 
   function setGameState(input) {
     let guessArray = input.split('');
