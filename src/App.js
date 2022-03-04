@@ -19,6 +19,12 @@ function App() {
   const {
     user, setUser,
     setQueryWord,
+    location, setLocation,
+    language, setLanguage,
+    queryWord,
+    setRow,
+    correctWord, setCorrectWord,
+    setGame
   } = useGameContext();
 
   function handleLogout() {
@@ -42,6 +48,24 @@ function App() {
     setQueryWord(commonWords[index]);
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
+  async function translateWord() {
+    const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
+    const json = await response.json();
+    setCorrectWord(json[0].translations[0].text);
+  }
+
+  useEffect(() => {
+    translateWord();
+
+  }, [language]);
+
+  async function handleLanguageSelect(e) {
+    e.preventDefault();
+    setLanguage(e.target.value);
+    translateWord();
+    setRow(0);
+  }
 
   return (
     <Router>
@@ -52,6 +76,15 @@ function App() {
             </header>
             : <header>
               <ul>
+                <li>
+                  <select className='language-selector' onChange={handleLanguageSelect}>
+                    <option value='fr'>French</option>
+                    <option value='es'>Spanish</option>
+                    <option value='it'>Italian</option>
+                    <option value='pt-pt'>Portuguese</option>
+                    <option value='de'>German</option>
+                  </select>
+                </li>
                 <li>
                   <NavLink to='/game'>Game</NavLink>
                 </li>

@@ -6,6 +6,7 @@ import { updateUserScore } from '../services/fetch-utils.js';
 
 export default function Game() {
   const {
+    language, setLanguage,
     correctWord, setCorrectWord,
     guessedWord, setGuessedWord,
     game, setGame,
@@ -14,7 +15,6 @@ export default function Game() {
     isWin, setIsWin,
     isLoss, setIsLoss,
   } = useGameContext();
-
 
   useEffect(() => {
     async function translateWord() {
