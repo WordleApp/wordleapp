@@ -9,6 +9,12 @@
   overflow: hidden;
 }
 
+#definition {
+  color: red;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
 .black {
   background-color: black;
   color: white;
