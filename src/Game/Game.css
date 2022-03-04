@@ -15,6 +15,21 @@
   font-size: 2rem;
 }
 
+h1 {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+h3 {
+  animation: pulse 20s infinite alternate;
+  border-radius: 10px;
+  padding: 10px 10px 10px 0;
+  margin-top: 0;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+
 .black {
   background-color: black;
   color: white;
