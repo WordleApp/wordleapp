@@ -59,6 +59,12 @@ function App() {
 
   }, [language]);
 
+  useEffect(() => {
+    setLanguage(`fr`);
+    translateWord();
+    setRow(0);
+  }, []);
+
   async function handleLanguageSelect(e) {
     e.preventDefault();
     setLanguage(e.target.value);
@@ -76,7 +82,12 @@ function App() {
             : <header>
               <ul>
                 <li>
-                  <select className='language-selector' onChange={handleLanguageSelect}>
+                  {/* <select 
+                    className='language-selector' 
+                    onChange={handleLanguageSelect}> */}
+                  <select 
+                    className='language-selector' 
+                    onChange={(handleLanguageSelect)}>
                     <option value='fr'>French</option>
                     <option value='es'>Spanish</option>
                     <option value='it'>Italian</option>
