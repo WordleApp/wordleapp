@@ -98,7 +98,6 @@ export default function Game() {
     if (language === 'es') return 'Spanish';
     if (language === 'pt-pt') return 'Portuguese';
     if (language === 'de') return 'German';
-
   }
 
   return (
@@ -141,6 +140,5 @@ export default function Game() {
         </div>
       </form>
     </>
-
   );
 }
