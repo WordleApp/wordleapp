@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,12 +20,10 @@ function App() {
   const {
     user, setUser,
     setQueryWord,
-    location, setLocation,
     language, setLanguage,
     queryWord,
     setRow,
-    correctWord, setCorrectWord,
-    setGame
+    setCorrectWord,
   } = useGameContext();
 
   function handleLogout() {

@@ -6,7 +6,6 @@ import { updateUserScore } from '../services/fetch-utils.js';
 
 export default function Game() {
   const {
-    language, setLanguage,
     correctWord, setCorrectWord,
     guessedWord, setGuessedWord,
     game, setGame,

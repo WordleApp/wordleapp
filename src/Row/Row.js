@@ -6,7 +6,7 @@ import './Row.css';
 
 export default function Row({ currentRow }){
   const {
-    correctWord, setCorrectWord,
+    correctWord,
     queryWord,
     setDefinition,
     game,
@@ -33,7 +33,6 @@ export default function Row({ currentRow }){
   }, [correctWord]);
 
   function fillArrays() {
-    console.log('|| correctWord', correctWord);
     // setGame([]);
     // if ((game[0].length > 0)) {
     const newRowArr = new Array(correctWord.length).fill({
