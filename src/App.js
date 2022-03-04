@@ -74,7 +74,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className='wrapper'>
         {
           !user
             ? <header>
@@ -82,9 +82,6 @@ function App() {
             : <header>
               <ul>
                 <li>
-                  {/* <select 
-                    className='language-selector' 
-                    onChange={handleLanguageSelect}> */}
                   <select 
                     className='language-selector' 
                     onChange={(handleLanguageSelect)}>
