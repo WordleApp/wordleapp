@@ -22,6 +22,7 @@ function App() {
     location, setLocation,
     language, setLanguage,
     queryWord,
+    setRow,
     correctWord, setCorrectWord,
     setGame
   } = useGameContext();
@@ -62,7 +63,7 @@ function App() {
     e.preventDefault();
     setLanguage(e.target.value);
     translateWord();
-    
+    setRow(0);
   }
 
   return (

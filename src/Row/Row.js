@@ -17,7 +17,7 @@ export default function Row({ currentRow }){
   useEffect(() => {
     fillArrays();
 
-  }, [correctWord]);
+  }, [correctWord, language]);
 
   useEffect(() => {
     async function defineWord() {
@@ -32,17 +32,19 @@ export default function Row({ currentRow }){
   }, [correctWord]);
 
   function fillArrays() {
-    if (!(game[0].length > 0)) {
-      const newRowArr = new Array(correctWord.length).fill({
-        letter: '',
-        letterInCorrectWord: false,
-        letterInCorrectWordAndRightPlace: false
-      });
-      const newGameArray = game.map(() => newRowArr);
-      setGame([...newGameArray]);
-    }
+    console.log('|| correctWord', correctWord);
+    // setGame([]);
+    // if ((game[0].length > 0)) {
+    const newRowArr = new Array(correctWord.length).fill({
+      letter: '',
+      letterInCorrectWord: false,
+      letterInCorrectWordAndRightPlace: false
+    });
+    const newGameArray = game.map(() => newRowArr);
+    setGame([...newGameArray]);
+    // }
   }
-  console.log('||', language);
+
   return (
     <form className='game-row'>
       {

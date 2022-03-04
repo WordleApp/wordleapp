@@ -10,7 +10,7 @@ const GameContext = createContext();
 export default function GameProvider({ children }) {
   const [wordPool, setWordPool] = useState(commonWords);
   const [fieldValue, setFieldValue] = useState('');
-  const [language, setLanguage] = useState('fr');
+  const [language, setLanguage] = useState('');
   // queryWord: word pulled from wordPool, sent to both netlify functions
   // correctWord: word returned from translator
   // definition: definition returned from define
