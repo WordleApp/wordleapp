@@ -135,7 +135,10 @@ export default function Game() {
               ? <h1>You Win</h1>
               : <h1>Game Over</h1>
           }
-          <div className="data-vis"></div>
+          <div className="data-vis">
+            <p className='correct-word-p'><span>The word was:</span></p>
+            <h1 className="correct-word">{correctWord}</h1>
+          </div>
           <button onClick={newGame} className='new-game-button'>New Game</button>
         </div>
       </form>

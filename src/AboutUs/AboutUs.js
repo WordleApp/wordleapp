@@ -15,11 +15,11 @@ export default function AboutUs() {
           </h5>
           <ul>
             <li>
-              <a href="https://www.linkedin.com/in/sam-benatovich/">LinkedIn</a>
+              <a className='about-us-a' href="https://www.linkedin.com/in/sam-benatovich/">LinkedIn</a>
             </li>
 
             <li>
-              <a href="https://github.com/benatovich">GitHub</a>
+              <a className='about-us-a' href="https://github.com/benatovich">GitHub</a>
             </li>
           </ul>
           <div>
@@ -36,10 +36,10 @@ export default function AboutUs() {
           </h5>
           <ul>
             <li>
-              <a href="https://www.linkedin.com/in/abrielcleaver/">LinkedIn</a>
+              <a className='about-us-a' href="https://www.linkedin.com/in/abrielcleaver/">LinkedIn</a>
             </li>
             <li>
-              <a href="https://github.com/abrielcleaver">GitHub</a>
+              <a className='about-us-a' href="https://github.com/abrielcleaver">GitHub</a>
             </li>
           </ul>
           <p>
@@ -54,10 +54,10 @@ export default function AboutUs() {
           </h5>
           <ul>
             <li>
-              <a href="https://www.linkedin.com/in/philippe-ngom-134113102/">LinkedIn</a>
+              <a className='about-us-a' href="https://www.linkedin.com/in/philippe-ngom-134113102/">LinkedIn</a>
             </li>
             <li>
-              <a href="https://github.com/philngom">GitHub</a>
+              <a className='about-us-a' href="https://github.com/philngom">GitHub</a>
             </li>
           </ul>
           <p>
@@ -72,10 +72,10 @@ export default function AboutUs() {
           </h5>
           <ul>
             <li>
-              <a href="https://www.linkedin.com/in/arma-burton/">LinkedIn</a>
+              <a className='about-us-a' href="https://www.linkedin.com/in/arma-burton/">LinkedIn</a>
             </li>
             <li>
-              <a href="https://github.com/armaBurton">GitHub</a>
+              <a className='about-us-a' href="https://github.com/armaBurton">GitHub</a>
             </li>
           </ul>
           <p>
