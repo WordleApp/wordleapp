@@ -61,7 +61,7 @@ export default function AboutUs() {
             </li>
           </ul>
           <p>
-            Philippe is a developer with a background in ....
+          Philippe Ngom is a software developer in Seattle, WA.  He has a decade of military experience as an industrial maintainer. He enjoys collaborating and building useful applications.
           </p>
         </div>
     
@@ -79,7 +79,7 @@ export default function AboutUs() {
             </li>
           </ul>
           <p>
-            Arma is a developer with a background in ....
+          Arma Burton is a software developer in Portland, OR. He is a former constructioneer and graphic-designer pursuing a more rewarding career with upward mobility. He has two legs from his hips to the ground and when he moves them he walks around.
           </p>
         </div>
       </div>
