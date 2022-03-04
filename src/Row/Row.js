@@ -6,7 +6,7 @@ import './Row.css';
 
 export default function Row({ currentRow }){
   const {
-    correctWord,
+    correctWord, setCorrectWord,
     queryWord,
     setDefinition,
     game,

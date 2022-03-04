@@ -22,7 +22,8 @@ function App() {
     location, setLocation,
     language, setLanguage,
     queryWord,
-    correctWord, setCorrectWord
+    correctWord, setCorrectWord,
+    setGame
   } = useGameContext();
 
   function handleLogout() {
@@ -45,29 +46,24 @@ function App() {
     setQueryWord(commonWords[index]);
     
   }, []);
-
-  function aboutUs(){
-    setLocation('/about-us');  
-  }
   
-  function game(){
-    setLocation('/game');
+  async function translateWord() {
+    const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
+    const json = await response.json();
+    setCorrectWord(json[0].translations[0].text);
   }
 
-  function statistics(){
-    setLocation('/statistics');
-  }
+  useEffect(() => {
+    translateWord();
+
+  }, [language]);
 
   async function handleLanguageSelect(e) {
     e.preventDefault();
     setLanguage(e.target.value);
-    const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
-    const json = await response.json();
-    setCorrectWord(json[0].translations[0].text);
-    console.log('|| json[0]', json[0]);
+    translateWord();
+    
   }
-  console.log('|| language', language);
-  console.log('|| correctWord', correctWord);
 
   return (
     <Router>
@@ -91,13 +87,13 @@ function App() {
                   </select>
                 </li>
                 <li>
-                  <NavLink onClick={game} to='/game'>Game</NavLink>
+                  <NavLink to='/game'>Game</NavLink>
                 </li>
                 <li>
-                  <NavLink onClick={aboutUs} to='/about-us'>About Us</NavLink>
+                  <NavLink to='/about-us'>About Us</NavLink>
                 </li>
                 <li>
-                  <NavLink onClick={statistics} to='/statistics'>Statistics</NavLink>
+                  <NavLink to='/statistics'>Statistics</NavLink>
                 </li>
                 <li>
                   <NavLink to='/' onClick={ handleLogout }>Logout</NavLink>

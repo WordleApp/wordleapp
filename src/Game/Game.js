@@ -13,18 +13,16 @@ export default function Game() {
     queryWord, 
   } = useGameContext();
 
-  useEffect(() => {
-    async function translateWord() {
-      console.log('queryWord', queryWord);
-      console.log('correctWord', correctWord);
-      const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
-      const json = await response.json();
-      setCorrectWord(json[0].translations[0].text);
-    }
+  // useEffect(() => {
+  //   async function translateWord() {
+  //     const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
+  //     const json = await response.json();
+  //     setCorrectWord(json[0].translations[0].text);
+  //   }
 
-    translateWord();
+  //   translateWord();
 
-  }, [language]);
+  // }, [language]);
 
   function setGameState(input) {
     let guessArray = input.split('');
