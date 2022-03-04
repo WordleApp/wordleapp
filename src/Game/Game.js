@@ -10,7 +10,7 @@ export default function Game() {
     guessedWord, setGuessedWord,
     game, setGame,
     row, setRow,
-    queryWord,
+    queryWord, language,
     isWin, setIsWin,
     isLoss, setIsLoss,
   } = useGameContext();
@@ -93,10 +93,19 @@ export default function Game() {
     setGame([[], [], [], [], [], []]);
   }
 
+  function checkLanguage(language) {
+    if (language === 'fr') return 'French';
+    if (language === 'es') return 'Spanish';
+    if (language === 'pt-pt') return 'Portuguese';
+    if (language === 'de') return 'German';
+
+  }
+
   return (
     <>
       <div className="entire-game">
         <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
+        <h3 ><span>{checkLanguage(language)} word for: </span> <span id='definition'>{queryWord.toUpperCase()}</span></h3>
         <form onSubmit={e => handleGuess(e)}>
           <input
             value={guessedWord}
