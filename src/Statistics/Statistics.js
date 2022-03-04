@@ -1,8 +1,6 @@
 import './Statistics.css';
 import { useEffect, useState } from 'react';
 import { getAllProfiles } from '../services/fetch-utils';
-import Row from '../Row/Row';
-
 
 export default function Statistics(){
 
