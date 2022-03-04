@@ -3,7 +3,7 @@ import './AboutUs.css';
 
 export default function AboutUs() {
   return (
-    <>
+    <div className='about-us-div'>
   
       <h2>Meet The Creators</h2>
       
@@ -83,7 +83,7 @@ export default function AboutUs() {
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

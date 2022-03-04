@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useGameContext } from '../GameProvider';
 import './Game.css';
 import Row from '../Row/Row';
+import { updateUserScore } from '../services/fetch-utils.js';
 
 export default function Game() {
   const {
@@ -10,19 +11,21 @@ export default function Game() {
     guessedWord, setGuessedWord,
     game, setGame,
     row, setRow,
-    queryWord, 
+    queryWord,
+    isWin, setIsWin,
+    isLoss, setIsLoss,
   } = useGameContext();
 
-  // useEffect(() => {
-  //   async function translateWord() {
-  //     const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
-  //     const json = await response.json();
-  //     setCorrectWord(json[0].translations[0].text);
-  //   }
+  useEffect(() => {
+    async function translateWord() {
+      const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
+      const json = await response.json();
+      await setCorrectWord(json[0].translations[0].text);
+    }
 
-  //   translateWord();
-
-  // }, [language]);
+    translateWord();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function setGameState(input) {
     let guessArray = input.split('');
@@ -30,7 +33,7 @@ export default function Game() {
     let obj = guessArray.map((letter) => {
       return {
         letter: letter,
-        letterIsWrong: false, 
+        letterIsWrong: false,
         letterInCorrectWord: false,
         letterInCorrectWordAndRightPlace: false
       };
@@ -45,6 +48,10 @@ export default function Game() {
     }
     game[row] = obj;
     setGame([...game]);
+  }
+
+  async function gameOver() {
+    await updateUserScore(60 - (row * 10));
   }
 
   function checkGuess() {
@@ -67,25 +74,65 @@ export default function Game() {
     setGuessedWord('');
     checkGuess();
     setRow(row + 1);
+    checkWin();
+    if (guessedWord.toLowerCase() === correctWord.toLowerCase()){
+      setIsWin(true);
+      gameOver();
+    }
+  }
+
+  function checkWin(){
+    if (row > 4){
+      setIsLoss(true);
+    } else {
+      setIsLoss(false);
+    }
+  }
+
+  function newGame(){
+    setRow(0);
+    setGame([[], [], [], [], [], []]);
   }
 
   return (
-    <div className="entire-game">
-      <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
-      <form onSubmit={e => handleGuess(e)}>
-        <input 
-          value={guessedWord} 
-          id='invisible-guess' 
-          className='invisible-guess' 
-          onChange={e => setGameState(e.target.value)} 
-          maxLength={correctWord.length}
-          minLength={correctWord.length}
-          autoFocus 
-        />
+    <>
+      <div className="entire-game">
+        <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
+        <form onSubmit={e => handleGuess(e)}>
+          <input
+            value={guessedWord}
+            id='invisible-guess'
+            className='invisible-guess'
+            onChange={e => setGameState(e.target.value)}
+            maxLength={correctWord.length}
+            minLength={correctWord.length}
+            required
+            autoFocus
+          />
+        </form>
+        {
+          game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)
+        }
+      </div>
+      <form
+        onSubmit={newGame}
+        className=
+          {`
+          modal
+          ${isWin ? 'visible' : 'hidden'}
+          ${isLoss ? 'visible' : 'hidden'}
+        `}>
+        <div className="game-over-div">
+          {
+            isWin
+              ? <h1>You Win</h1>
+              : <h1>Game Over</h1>
+          }
+          <div className="data-vis"></div>
+          <button onClick={newGame} className='new-game-button'>New Game</button>
+        </div>
       </form>
-      {
-        game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)
-      }
-    </div>
+    </>
+
   );
 }

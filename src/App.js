@@ -17,7 +17,7 @@ import Statistics from './Statistics/Statistics';
 
 function App() {
   const {
-    user, setUser, 
+    user, setUser,
     setQueryWord,
     location, setLocation,
     language, setLanguage,
@@ -40,12 +40,13 @@ function App() {
       setUser(currentUser);
     }
     getUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const index = Math.floor(Math.random() * commonWords.length);
     setQueryWord(commonWords[index]);
-    
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   async function translateWord() {
@@ -72,9 +73,6 @@ function App() {
         {
           !user
             ? <header>
-              <ul>
-                <li className='nav-link'><NavLink to='about'>About</NavLink></li>
-              </ul>
             </header>
             : <header>
               <ul>

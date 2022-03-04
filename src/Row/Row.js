@@ -16,7 +16,7 @@ export default function Row({ currentRow }){
 
   useEffect(() => {
     fillArrays();
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [correctWord, language]);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ export default function Row({ currentRow }){
     }
 
     defineWord();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [correctWord]);
 
   function fillArrays() {
