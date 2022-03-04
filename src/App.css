@@ -7,10 +7,9 @@
   font-family: 'Rubik', sans-serif;
 }
 
-html {
+html, body {
   width: 100%;
   height: 100vh;
-  overflow: hidden;
 }
 
 header{
@@ -25,7 +24,7 @@ header{
   background-color: rgba(0, 0, 0, 0);
   top: 0;
   left: 0;
-
+  backdrop-filter: blur(4px);
 }
 
 ul{
@@ -78,4 +77,9 @@ span{
   align-items: center;
   margin: 0 0 0 0;
   font-weight: 500;
+}
+
+select{
+  background-color: #00800055;
+  border: none;
 }
