@@ -1,14 +1,20 @@
+// const { useGameContext } = require('../src/GameProvider');
+
 const axios = require('axios').default;
 require('dotenv').config();
 
 
 exports.handler = async (event) => {
-
-
+  // const {
+  //   language,
+  // } = useGameContext();
 
   try {
     const queryWord = event.queryStringParameters.word;
-    console.log('queryWord', queryWord);
+    const language = event.queryStringParameters.to;
+
+    console.log('|| language', language);
+    // console.log('queryWord', queryWord);
     var subscriptionKey = process.env.REACT_APP_TRANSLATOR_KEY;
     var endpoint = 'https://api.cognitive.microsofttranslator.com';
 
@@ -30,21 +36,22 @@ exports.handler = async (event) => {
       params: {
         'api-version': '3.0',
         'from': 'en',
-        'to': 'fr',
+        // 'to': 'fr',
+        'to': `${language}`,
       },
       data: [{
         'text': `${queryWord}`,
       }],
       responseType: 'json'
     }).then(function(response){
-      console.log(JSON.stringify(response.data, null, 4));
+      // console.log(JSON.stringify(response.data, null, 4));
       return {
         statusCode: 200,
         body: JSON.stringify(response.data, null, 4)
       };
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Failed fetching data' }),

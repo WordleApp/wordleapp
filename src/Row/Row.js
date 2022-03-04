@@ -10,13 +10,14 @@ export default function Row({ currentRow }){
     queryWord,
     setDefinition,
     game,
-    setGame
+    setGame,
+    language
   } = useGameContext();
 
   useEffect(() => {
     fillArrays();
 // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [correctWord]);
+  }, [correctWord, language]);
 
   useEffect(() => {
     async function defineWord() {
@@ -32,15 +33,16 @@ export default function Row({ currentRow }){
   }, [correctWord]);
 
   function fillArrays() {
-    if (!(game[0].length > 0)) {
-      const newRowArr = new Array(correctWord.length).fill({
-        letter: '',
-        letterInCorrectWord: false,
-        letterInCorrectWordAndRightPlace: false
-      });
-      const newGameArray = game.map(() => newRowArr);
-      setGame([...newGameArray]);
-    }
+    // setGame([]);
+    // if ((game[0].length > 0)) {
+    const newRowArr = new Array(correctWord.length).fill({
+      letter: '',
+      letterInCorrectWord: false,
+      letterInCorrectWordAndRightPlace: false
+    });
+    const newGameArray = game.map(() => newRowArr);
+    setGame([...newGameArray]);
+    // }
   }
 
   return (

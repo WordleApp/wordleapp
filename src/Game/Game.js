@@ -15,7 +15,6 @@ export default function Game() {
     isLoss, setIsLoss,
   } = useGameContext();
 
-
   useEffect(() => {
     async function translateWord() {
       const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
