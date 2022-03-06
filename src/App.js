@@ -47,11 +47,15 @@ function App() {
     setQueryWord(commonWords[index]);
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   async function translateWord() {
     const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
     const json = await response.json();
-    setCorrectWord(json[0].translations[0].text);
+    // console.log('diacritics not removed', json[0].translations[0].text);
+    let word = json[0].translations[0].text;
+    word = word.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+    // console.log('diacritics translated', word);
+    setCorrectWord(word);
   }
 
   useEffect(() => {
@@ -82,11 +86,11 @@ function App() {
             : <header>
               <ul>
                 <li>
-                  {/* <select 
-                    className='language-selector' 
+                  {/* <select
+                    className='language-selector'
                     onChange={handleLanguageSelect}> */}
-                  <select 
-                    className='language-selector' 
+                  <select
+                    className='language-selector'
                     onChange={(handleLanguageSelect)}>
                     <option value='fr'>French</option>
                     <option value='es'>Spanish</option>
