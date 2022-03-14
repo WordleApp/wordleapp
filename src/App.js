@@ -78,7 +78,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className='wrapper'>
         {
           !user
             ? <header>

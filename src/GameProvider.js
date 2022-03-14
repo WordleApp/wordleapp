@@ -11,11 +11,6 @@ export default function GameProvider({ children }) {
   const [wordPool, setWordPool] = useState(commonWords);
   const [fieldValue, setFieldValue] = useState('');
   const [language, setLanguage] = useState('');
-  // queryWord: word pulled from wordPool, sent to both netlify functions
-  // correctWord: word returned from translator
-  // definition: definition returned from define
-  // guessedWord: user submitted guess
-  // currentWord: changes as the user types (vs guessedWord, which happens on submit)
   const [currentWord, setCurrentWord] = useState('');
   const [queryWord, setQueryWord] = useState('');
   const [correctWord, setCorrectWord] = useState('');
@@ -27,8 +22,6 @@ export default function GameProvider({ children }) {
   const [game, setGame] = useState([[], [], [], [], [], []]);
   const [isWin, setIsWin] = useState(false);
   const [isLoss, setIsLoss] = useState(false);
-
-
 
   const gameState = {
     wordPool, setWordPool,

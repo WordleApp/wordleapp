@@ -1,8 +1,6 @@
 import './Statistics.css';
 import { useEffect, useState } from 'react';
 import { getAllProfiles } from '../services/fetch-utils';
-import Row from '../Row/Row';
-
 
 export default function Statistics(){
 
@@ -15,9 +13,6 @@ export default function Statistics(){
     }
     getPlayerStats();
   }, []);
-  
-
-
 
   return (
     <section className='statistics-section'>
@@ -34,7 +29,6 @@ export default function Statistics(){
               <p className="games-played row-unit">{player.games_played}</p>
               <p className="score row-unit">{player.total_score}</p>
             </div>
-            // <div key={player + i}>{ player.name } {player.games_played} {player.total_score} </div>
           )
         }
       </div>
