@@ -26,23 +26,27 @@ export default function Game() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function setGameState(input) {
+  const defaultStuff = {
+    letterIsWrong: false,
+    letterInCorrectWord: false,
+    letterInCorrectWordAndRightPlace: false
+  }
+
+    function setGameState(input) {
     let guessArray = input.split('');
     setGuessedWord(input);
+    // it's a little icky that your array is called 'obj'. I would've guess this wass an object :)
     let obj = guessArray.map((letter) => {
       return {
-        letter: letter,
-        letterIsWrong: false,
-        letterInCorrectWord: false,
-        letterInCorrectWordAndRightPlace: false
+        ...defaultStuff,
+        letter,
       };
     });
+    // oohhh, don't see a lot of while loops out there! seems like you could have done this with another map? or even a `new Array(obj.length).fill(letterObject)` ?
     while (obj.length < correctWord.length) {
       obj.push({
+        ...defaultStuff,
         letter: '',
-        letterIsWrong: false,
-        letterInCorrectWord: false,
-        letterInCorrectWordAndRightPlace: false
       });
     }
     game[row] = obj;
@@ -81,11 +85,7 @@ export default function Game() {
   }
 
   function checkWin(){
-    if (row > 4){
-      setIsLoss(true);
-    } else {
-      setIsLoss(false);
-    }
+    setIsLoss(row > 4)
   }
 
   function newGame(){
@@ -94,10 +94,14 @@ export default function Game() {
   }
 
   function checkLanguage(language) {
-    if (language === 'fr') return 'French';
-    if (language === 'es') return 'Spanish';
-    if (language === 'pt-pt') return 'Portuguese';
-    if (language === 'de') return 'German';
+    const languageMap = {
+      fr: 'French',
+      es: 'Spanish',
+      'pt-pt': 'Portuguese',
+      'de': 'German'
+    }
+
+    return languageMap[language]
   }
 
   return (
@@ -126,8 +130,7 @@ export default function Game() {
         className=
           {`
           modal
-          ${isWin ? 'visible' : 'hidden'}
-          ${isLoss ? 'visible' : 'hidden'}
+          ${isWin || isLoss ? 'visible' : 'hidden'}
         `}>
         <div className="game-over-div">
           {
