@@ -33,16 +33,15 @@ export default function Row({ currentRow }){
   }, [correctWord]);
 
   function fillArrays() {
-    // setGame([]);
-    // if ((game[0].length > 0)) {
+      // very cool use of Array.fill!
     const newRowArr = new Array(correctWord.length).fill({
       letter: '',
       letterInCorrectWord: false,
+      // some might call this verbose, but i actually like this kind of naming
       letterInCorrectWordAndRightPlace: false
     });
-    const newGameArray = game.map(() => newRowArr);
+    const newGameArray = game.map(() => newRowArr); // interesting--so just makes an array of arrays equal to the length of new game array?
     setGame([...newGameArray]);
-    // }
   }
 
   return (

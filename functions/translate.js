@@ -22,6 +22,7 @@ exports.handler = async (event) => {
 // This is required if using a Cognitive Services resource.
     var location = 'global';
 
+    // nice work puzzling through this mess! this API seems like a huge pain to use!
     return axios({
       baseURL: endpoint,
       url: '/translate',
@@ -30,6 +31,7 @@ exports.handler = async (event) => {
         'Ocp-Apim-Subscription-Key': subscriptionKey,
         'Ocp-Apim-Subscription-Region': location,
         'Content-type': 'application/json',
+        // should this key be secret? maybe it needs to be an environment variable?
         'X-ClientTraceId': '9af1714b-cd72-4018-a129-fef6566bb5ae'
         ,
       },

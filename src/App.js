@@ -1,3 +1,5 @@
+// This is some very clean code! I love the component decomposition boundaries you selected, as well as your adherence to the single responsibility principle. I generally judge code based on how easy it would be to inherit this project, and this one passes that tests with flying colors. It's also impressive to see how much you did with so little code. Great work!
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   BrowserRouter as Router,
@@ -26,12 +28,7 @@ function App() {
     setCorrectWord,
   } = useGameContext();
 
-  function handleLogout() {
-    logout();
-
-    setUser('');
-  }
-
+  // i like useEffect to be first of the functions called after state
   useEffect(() => {
     async function getUserData(){
       const currentUser = await getUser();
@@ -39,20 +36,31 @@ function App() {
       setUser(currentUser);
     }
     getUserData();
+
+    // seems like all of these can go in the same useEffect if they all occur 'on load'
+    const index = Math.floor(Math.random() * commonWords.length);
+    setQueryWord(commonWords[index]);
+    setLanguage(`fr`);
+    translateWord();
+    setRow(0);
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const index = Math.floor(Math.random() * commonWords.length);
-    setQueryWord(commonWords[index]);
-// eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  function handleLogout() {
+    logout();
+
+    setUser('');
+  }
+
 
   async function translateWord() {
     const response = await fetch(`/.netlify/functions/translate?to=${language}&word=${queryWord}`);
     const json = await response.json();
     // console.log('diacritics not removed', json[0].translations[0].text);
     let word = json[0].translations[0].text;
+    // wow, very nice work solving an interesting problem
     word = word.normalize('NFD').replace(/\p{Diacritic}/gu, '');
     // console.log('diacritics translated', word);
     setCorrectWord(word);
@@ -62,12 +70,6 @@ function App() {
     translateWord();
 
   }, [language]);
-
-  useEffect(() => {
-    setLanguage(`fr`);
-    translateWord();
-    setRow(0);
-  }, []);
 
   async function handleLanguageSelect(e) {
     e.preventDefault();
@@ -86,9 +88,6 @@ function App() {
             : <header>
               <ul>
                 <li>
-                  {/* <select
-                    className='language-selector'
-                    onChange={handleLanguageSelect}> */}
                   <select
                     className='language-selector'
                     onChange={(handleLanguageSelect)}>

@@ -24,7 +24,8 @@ export default function Statistics(){
       <div>
         {
           players.map((player, i) => 
-            <div className='table-row' key={player + i}>
+          // without accessing a property like so, this key was probably [Object object]4, since `player` is not a string
+            <div className='table-row' key={player.name + i}> 
               <p className="user row-unit">{player.name}</p>
               <p className="games-played row-unit">{player.games_played}</p>
               <p className="score row-unit">{player.total_score}</p>

@@ -7,6 +7,7 @@ import commonWords from './common-words';
 
 const GameContext = createContext();
 
+// amazing work using a provider! this is not easy to wrap your head around, so great job :)
 export default function GameProvider({ children }) {
   const [wordPool, setWordPool] = useState(commonWords);
   const [fieldValue, setFieldValue] = useState('');
