@@ -6,20 +6,29 @@ import { updateUserScore } from '../services/fetch-utils.js';
 
 export default function Game() {
   const {
-    correctWord, setCorrectWord,
-    guessedWord, setGuessedWord,
-    game, setGame,
-    row, setRow,
-    queryWord, language,
-    isWin, setIsWin,
-    isLoss, setIsLoss,
+    correctWord,
+    setCorrectWord,
+    guessedWord,
+    setGuessedWord,
+    game,
+    setGame,
+    row,
+    setRow,
+    queryWord,
+    language,
+    isWin,
+    setIsWin,
+    isLoss,
+    setIsLoss,
   } = useGameContext();
 
   useEffect(() => {
     async function translateWord() {
-      const response = await fetch(`/.netlify/functions/translate?word=${queryWord}`);
-      const json = await response.json();
-      await setCorrectWord(json[0].translations[0].text);
+      // const response = await fetch(`wordleapp.netlify.app/functions/translate?word=${queryWord}`);
+
+      // const json = await response.json();
+      setCorrectWord(queryWord);
+      // await setCorrectWord(json[0].translations[0].text);
     }
 
     translateWord();
@@ -34,7 +43,7 @@ export default function Game() {
         letter: letter,
         letterIsWrong: false,
         letterInCorrectWord: false,
-        letterInCorrectWordAndRightPlace: false
+        letterInCorrectWordAndRightPlace: false,
       };
     });
     while (obj.length < correctWord.length) {
@@ -42,7 +51,7 @@ export default function Game() {
         letter: '',
         letterIsWrong: false,
         letterInCorrectWord: false,
-        letterInCorrectWordAndRightPlace: false
+        letterInCorrectWordAndRightPlace: false,
       });
     }
     game[row] = obj;
@@ -50,7 +59,7 @@ export default function Game() {
   }
 
   async function gameOver() {
-    await updateUserScore(60 - (row * 10));
+    await updateUserScore(60 - row * 10);
   }
 
   function checkGuess() {
@@ -74,21 +83,21 @@ export default function Game() {
     checkGuess();
     setRow(row + 1);
     checkWin();
-    if (guessedWord.toLowerCase() === correctWord.toLowerCase()){
+    if (guessedWord.toLowerCase() === correctWord.toLowerCase()) {
       setIsWin(true);
       gameOver();
     }
   }
 
-  function checkWin(){
-    if (row > 4){
+  function checkWin() {
+    if (row > 4) {
       setIsLoss(true);
     } else {
       setIsLoss(false);
     }
   }
 
-  function newGame(){
+  function newGame() {
     setRow(0);
     setGame([[], [], [], [], [], []]);
   }
@@ -103,43 +112,48 @@ export default function Game() {
   return (
     <>
       <div className="entire-game">
-        <h1>Wordlé <span>~aka~</span> Word Leapp</h1>
-        <h3 ><span>{checkLanguage(language)} word for: </span> <span id='definition'>{queryWord.toUpperCase()}</span></h3>
-        <form onSubmit={e => handleGuess(e)}>
+        <h1>
+          Wordlé <span>~aka~</span> Word Leapp
+        </h1>
+        <h3>
+          <span>{checkLanguage(language)} word for: </span>{' '}
+          <span id="definition">{queryWord.toUpperCase()}</span>
+        </h3>
+        <form onSubmit={(e) => handleGuess(e)}>
           <input
             value={guessedWord}
-            id='invisible-guess'
-            className='invisible-guess'
-            onChange={e => setGameState(e.target.value)}
+            id="invisible-guess"
+            className="invisible-guess"
+            onChange={(e) => setGameState(e.target.value)}
             maxLength={correctWord.length}
             minLength={correctWord.length}
             required
             autoFocus
           />
         </form>
-        {
-          game.map((currentRow, i) => <Row currentRow={currentRow} key={currentRow + i} y={i} />)
-        }
+        {game.map((currentRow, i) => (
+          <Row currentRow={currentRow} key={currentRow + i} y={i} />
+        ))}
       </div>
       <form
         onSubmit={newGame}
-        className=
-          {`
+        className={`
           modal
           ${isWin ? 'visible' : 'hidden'}
           ${isLoss ? 'visible' : 'hidden'}
-        `}>
+        `}
+      >
         <div className="game-over-div">
-          {
-            isWin
-              ? <h1>You Win</h1>
-              : <h1>Game Over</h1>
-          }
+          {isWin ? <h1>You Win</h1> : <h1>Game Over</h1>}
           <div className="data-vis">
-            <p className='correct-word-p'><span>The word was:</span></p>
+            <p className="correct-word-p">
+              <span>The word was:</span>
+            </p>
             <h1 className="correct-word">{correctWord}</h1>
           </div>
-          <button onClick={newGame} className='new-game-button'>New Game</button>
+          <button onClick={newGame} className="new-game-button">
+            New Game
+          </button>
         </div>
       </form>
     </>
