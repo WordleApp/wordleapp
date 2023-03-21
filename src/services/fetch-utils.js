@@ -32,7 +32,7 @@ export async function logout() {
 
 export async function getUserProfile() {
   const user = await getUser();
-  console.log('*** -32 -fetch-utils.js *** user ==> ', user);
+
   const profile = await client.from('profiles').select().match({ user_id: user.id });
   return checkError(profile);
 }
