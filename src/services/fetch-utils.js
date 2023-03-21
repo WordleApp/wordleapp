@@ -8,9 +8,6 @@ export async function signUp(email, password, username) {
   const response = await client.auth.signUp({
     email,
     password,
-    data: {
-      confirmation_sent_at: Date.now(),
-    },
   });
 
   await client.from('profiles').insert([
